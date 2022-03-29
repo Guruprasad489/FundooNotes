@@ -40,7 +40,7 @@ namespace FundooNotes.Controllers
             {
                 var res = userBL.UserLogin(userLogin);
                 if (res != null)
-                    return Ok(new { success = true, message = "Logged in successfully", data = res });
+                    return Ok(new { success = true, message = "Logged in successfully", Email = res.Email, Token = res.Token });
                 else
                     return BadRequest(new { success = false, message = "Faild to login" });
             }

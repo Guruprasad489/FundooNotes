@@ -28,7 +28,7 @@ namespace BusinessLayer.Services
             }
         }
 
-        public UserEntity UserLogin(UserLogin userLogin)
+        public LoginResponse UserLogin(UserLogin userLogin)
         {
             try
             {
