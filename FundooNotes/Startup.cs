@@ -43,7 +43,6 @@ namespace FundooNotes
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(jwt =>
             {
                 jwt.SaveToken = true;
@@ -53,6 +52,8 @@ namespace FundooNotes
                     ValidateLifetime = false,
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"]))
                 };
@@ -67,7 +68,7 @@ namespace FundooNotes
 
                 var securitySchema = new OpenApiSecurityScheme
                 {
-                    Description = "Using the Authorization header with the Bearer scheme.",
+                    Description = "Using the Authorization header with the Bearer scheme",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
@@ -105,6 +106,8 @@ namespace FundooNotes
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

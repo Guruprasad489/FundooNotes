@@ -26,10 +26,10 @@ namespace CommonLayer.Models
                 messageQueue.Close();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -49,7 +49,7 @@ namespace CommonLayer.Models
                 };
                 mailMessage.From = new MailAddress("guruprasad.testmail@gmail.com");
                 mailMessage.To.Add(new MailAddress("guruprasad.testmail@gmail.com"));
-                mailMessage.Body = token;
+                mailMessage.Body = "Token to reset password is: \n\n"+ token;
                 mailMessage.Subject = "Fundoo Notes Password Reset Link";
                 smtpClient.Send(mailMessage);
             }

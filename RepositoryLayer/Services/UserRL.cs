@@ -82,7 +82,7 @@ namespace RepositoryLayer.Services
             };
             var token = new JwtSecurityToken(
                 this.configuration["Jwt:Issuer"],
-                this.configuration["jwt:Audience"],
+                this.configuration["Jwt:Audience"],
                 claims,
                 expires: DateTime.Now.AddHours(4),
                 signingCredentials: credentials
@@ -103,6 +103,29 @@ namespace RepositoryLayer.Services
                 }
                 else
                     return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        //Reset Password for Authenticated emailID after authorization
+        public string ResetPassword(ResetPassword resetPassword, string emailID)
+        {
+            try
+            {
+                if (resetPassword.NewPassword == resetPassword.ConfirmPassword)
+                {
+                    var userDetails = fundooContext.UserEntityTable.Where(x => x.Email == emailID).FirstOrDefault();
+                    userDetails.Password = resetPassword.NewPassword;
+                    fundooContext.SaveChanges();
+                    return "Congratulations! Your password has been changed successfully";
+                }
+                else
+                    return "Make Sure your Passwords Match";
+
             }
             catch (Exception ex)
             {

@@ -1,7 +1,9 @@
 ﻿using BusinessLayer.Interface;
 using CommonLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FundooNotes.Controllers
 {
@@ -60,6 +62,25 @@ namespace FundooNotes.Controllers
                     return Ok(new { success = true, message = "Reset link sent successfully",  });
                 else
                     return BadRequest(new { success = false, message = "Failed to sent reset link" });
+            }
+            catch (System.Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPut("ResetPassword")]
+        [Authorize]
+        public IActionResult PutResetPassword(ResetPassword resetPassword)
+        {
+            try
+            {
+                var emailID = User.FindFirst(ClaimTypes.Email).Value;
+                var res = userBL.ResetPassword(resetPassword, emailID);
+                if (res != null)
+                    return Ok(new { success = true, message = res, });
+                else
+                    return BadRequest(new { success = false, message = res });
             }
             catch (System.Exception ex)
             {
