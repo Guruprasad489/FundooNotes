@@ -46,7 +46,23 @@ namespace FundooNotes.Controllers
             }
             catch (System.Exception ex)
             {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
 
+        [HttpPost("ForgetPassword")]
+        public IActionResult PostForgetPassword(string emailID)
+        {
+            try
+            {
+                var res = userBL.ForgetPassword(emailID);
+                if (res != null)
+                    return Ok(new { success = true, message = "Reset link sent successfully",  });
+                else
+                    return BadRequest(new { success = false, message = "Failed to sent reset link" });
+            }
+            catch (System.Exception ex)
+            {
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
