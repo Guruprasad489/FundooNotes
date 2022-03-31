@@ -29,15 +29,21 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                UserEntity userEntity = new UserEntity();
-                userEntity.FirstName = userReg.FirstName;
-                userEntity.LastName = userReg.LastName;
-                userEntity.Email = userReg.Email;
-                userEntity.Password = userReg.Password;
-                fundooContext.Add(userEntity);
-                int res = fundooContext.SaveChanges();
-                if (res > 0)
-                    return userEntity;
+                var duplicate = fundooContext.UserEntityTable.Where(x => x.Email == userReg.Email).FirstOrDefault();
+                if (duplicate == null)
+                {
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.FirstName = userReg.FirstName;
+                    userEntity.LastName = userReg.LastName;
+                    userEntity.Email = userReg.Email;
+                    userEntity.Password = userReg.Password;
+                    fundooContext.UserEntityTable.Add(userEntity);
+                    int res = fundooContext.SaveChanges();
+                    if (res > 0)
+                        return userEntity;
+                    else
+                        return null;
+                }
                 else
                     return null;
             }

@@ -3,6 +3,7 @@ using CommonLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryLayer.Context;
 using System.Security.Claims;
 
 namespace FundooNotes.Controllers
@@ -24,14 +25,14 @@ namespace FundooNotes.Controllers
             {
                 var res = userBL.Register(userReg);
                 if (res != null)
-                    return Ok(new { success = true, message = "Data posted successfully", data = res });
+                    return Ok(new { success = true, message = "Registration successfull", data = res });
                 else
-                    return BadRequest(new { success = false, message = "Faild to post the data" });
+                    return BadRequest(new { success = false, message = "Faild to Register" });
             }
             catch (System.Exception ex)
             {
 
-                return NotFound(new { success = false, message = ex.Message});
+                return NotFound(new { success = false, message = ex.Message });
             }
         }
 

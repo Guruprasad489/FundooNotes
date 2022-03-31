@@ -37,6 +37,8 @@ namespace FundooNotes
             services.AddDbContext<FundooContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:FundooDB"]));
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<IUserRL, UserRL>();
+            services.AddTransient<INotesBL, NotesBL>();
+            services.AddTransient<INotesRL, NotesRL>();
             services.AddControllers();
             ConfigureSwagger(services);
             services.AddAuthentication(options =>
@@ -64,7 +66,7 @@ namespace FundooNotes
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MY API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fundoo Notes", Version = "v1" });
 
                 var securitySchema = new OpenApiSecurityScheme
                 {
