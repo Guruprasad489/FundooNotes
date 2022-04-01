@@ -51,7 +51,7 @@ namespace FundooNotes
                 jwt.RequireHttpsMetadata = false;
                 jwt.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateLifetime = false,
+                    ValidateLifetime = true,
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],

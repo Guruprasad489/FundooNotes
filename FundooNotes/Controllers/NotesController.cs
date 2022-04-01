@@ -20,7 +20,7 @@ namespace FundooNotes.Controllers
             this.notesBL = notesBL;
         }
 
-        [HttpPost("CreateNote")]
+        [HttpPost("Create")]
         public IActionResult PostCreateNote(Notes createNotes)
         {
             try
@@ -39,7 +39,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpGet("ViewNote/NoteId")]
+        [HttpGet("View")]
         public IActionResult GetViewNote(long noteID)
         {
             try
@@ -57,7 +57,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpGet("ViewAllNotes")]
+        [HttpGet("GetAll")]
         public IActionResult GetViewAllNotes()
         {
             try
@@ -75,7 +75,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPut("UpdateNote")]
+        [HttpPut("Update")]
         public IActionResult PutUpdateNote(Notes updateNotes, long noteId)
         {
             try
@@ -93,7 +93,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpDelete("DeleteNote")]
+        [HttpDelete("Delete")]
         public IActionResult DeleteNote(long noteId)
         {
             try
@@ -111,17 +111,17 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPatch("IsArchiveOrNot")]
+        [HttpPatch("IsArchive")]
         public IActionResult PatchArchieveOrNot(long noteId)
         {
             try
             {
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.IsArchieveOrNot(noteId, userId);
-                if (resNote == true)
-                    return this.Ok(new { Success = true, message = "Archive Status Changed Successfully" });
+                if (resNote != null)
+                    return Ok(new { Success = true, message = "Archive Status Changed Successfully", data = resNote });
                 else
-                    return this.BadRequest(new { Success = false, message = "Failed to change Archive Status" });
+                    return BadRequest(new { Success = false, message = "Failed to change Archive Status" });
             }
             catch (Exception ex)
             {
@@ -129,17 +129,17 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPatch("IsPinnedOrNot")]
+        [HttpPatch("IsPinned")]
         public IActionResult PatchPinnedOrNot(long noteId)
         {
             try
             {
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
-                var resNote = this.notesBL.IsPinnedOrNot(noteId, userId);
-                if (resNote == true)
-                    return this.Ok(new { Success = true, message = "Pin Status Changed Successfully" });
+                var resNote = notesBL.IsPinnedOrNot(noteId, userId);
+                if (resNote != null)
+                    return Ok(new { Success = true, message = "Pin Status Changed Successfully" , data = resNote });
                 else
-                    return this.BadRequest(new { Success = false, message = "Failed to change Pin Status" });
+                    return BadRequest(new { Success = false, message = "Failed to change Pin Status" });
             }
             catch (Exception ex)
             {
@@ -147,17 +147,35 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPatch("IsTrashOrNot")]
+        [HttpPatch("IsTrash")]
         public IActionResult PatchTrashOrNot(long noteId)
         {
             try
             {
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
-                var resNote = this.notesBL.IsTrashOrNot(noteId, userId);
-                if (resNote == true)
-                    return this.Ok(new { Success = true, message = "Trash Status Changed Successfully", data = resNote });
+                var resNote = notesBL.IsTrashOrNot(noteId, userId);
+                if (resNote != null)
+                    return Ok(new { Success = true, message = "Trash Status Changed Successfully", data = resNote });
                 else
-                    return this.BadRequest(new { Success = false, message = "Failed to change Trash Status" });
+                    return BadRequest(new { Success = false, message = "Failed to change Trash Status" });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPatch("ChangeColor")]
+        public IActionResult PatchChangeColor(string newColor, long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var resNote = notesBL.ChangeColor(newColor, noteId, userId);
+                if (resNote != null)
+                    return Ok(new { Success = true, message = "Color Changed Successfully", data = resNote });
+                else
+                    return BadRequest(new { Success = false, message = "Failed to change Color" });
             }
             catch (Exception ex)
             {

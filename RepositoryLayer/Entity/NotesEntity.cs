@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace RepositoryLayer.Entity
 {
@@ -14,7 +15,6 @@ namespace RepositoryLayer.Entity
         public string Title { get; set; }
         public string Description { get; set; }
         public string Color { get; set; }
-        [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
         public DateTime Reminder { get; set; }
         public bool IsArchive  { get; set; }
@@ -25,6 +25,7 @@ namespace RepositoryLayer.Entity
 
         [ForeignKey("User")]
         public long UserId { get; set; }
+        [JsonIgnore]
         public virtual UserEntity User { get; set; }
     }
 }

@@ -90,13 +90,13 @@ namespace RepositoryLayer.Services
                 this.configuration["Jwt:Issuer"],
                 this.configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddHours(4),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials: credentials
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string ForgetPassword(string emailID)
+        public string ForgotPassword(string emailID)
         {
             try
             {

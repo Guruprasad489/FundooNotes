@@ -40,11 +40,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public string ForgetPassword(string emailID)
+        public string ForgotPassword(string emailID)
         {
             try
             {
-                return userRL.ForgetPassword(emailID);
+                return userRL.ForgotPassword(emailID);
             }
             catch (Exception ex)
             {

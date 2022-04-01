@@ -53,12 +53,12 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPost("ForgetPassword")]
-        public IActionResult PostForgetPassword(string emailID)
+        [HttpPost("ForgotPassword")]
+        public IActionResult PostForgotPassword(string emailID)
         {
             try
             {
-                var res = userBL.ForgetPassword(emailID);
+                var res = userBL.ForgotPassword(emailID);
                 if (res != null)
                     return Ok(new { success = true, message = "Reset link sent successfully",  });
                 else

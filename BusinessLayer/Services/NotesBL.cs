@@ -62,19 +62,29 @@ namespace BusinessLayer.Services
             return notesRL.DeleteNote(noteID, userID);
         }
 
-        public bool IsArchieveOrNot(long noteID, long userID)
+        public NotesEntity IsArchieveOrNot(long noteID, long userID)
         {
             return notesRL.IsArchieveOrNot(noteID, userID);
         }
 
-        public bool IsPinnedOrNot(long noteID, long userID)
+        public NotesEntity IsPinnedOrNot(long noteID, long userID)
         {
             return notesRL.IsPinnedOrNot(noteID, userID);
         }
 
-        public bool IsTrashOrNot(long noteID, long userID)
+        public NotesEntity IsTrashOrNot(long noteID, long userID)
         {
             return notesRL.IsTrashOrNot(noteID, userID);
+        }
+
+        public NotesEntity ChangeColor(string newColor, long noteID, long userID)
+        {
+            return notesRL.ChangeColor(newColor, noteID, userID);
+        }
+
+        public NotesEntity UploadImage(long noteID, long userID)
+        {
+            return notesRL.UploadImage(noteID, userID);
         }
     }
 }

@@ -61,9 +61,6 @@ namespace RepositoryLayer.Services
             try
             {
                 var getNote = fundooContext.notesEntityTable.Where(x => x.NoteId == noteID).FirstOrDefault();
-                //getNote.Reminder.ToString("dd-MM-yyyy hh:mm:ss tt");
-                //getNote.CreatedAt.ToString("dd-MM-yyyy hh:mm:ss tt");
-                //getNote.ModifiedAt.ToString("dd-MM-yyyy hh:mm:ss tt");
                 return getNote;
             }
             catch (Exception ex)
@@ -136,7 +133,7 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public bool IsArchieveOrNot(long noteID, long userID)
+        public NotesEntity IsArchieveOrNot(long noteID, long userID)
         {
             try
             {
@@ -148,10 +145,10 @@ namespace RepositoryLayer.Services
                     else
                         resNote.IsArchive = false;
                     fundooContext.SaveChanges();
-                    return true;
+                    return resNote;
                 }
                 else
-                    return false;
+                    return null;
             }
             catch (Exception ex)
             {
@@ -159,7 +156,7 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public bool IsPinnedOrNot(long noteID, long userID)
+        public NotesEntity IsPinnedOrNot(long noteID, long userID)
         {
             try
             {
@@ -171,10 +168,10 @@ namespace RepositoryLayer.Services
                     else
                         resNote.IsPin = false;
                     fundooContext.SaveChanges();
-                    return true;
+                    return resNote;
                 }
                 else
-                    return false;
+                    return null;
             }
             catch (Exception ex)
             {
@@ -182,7 +179,7 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public bool IsTrashOrNot(long noteID, long userID)
+        public NotesEntity IsTrashOrNot(long noteID, long userID)
         {
             try
             {
@@ -194,15 +191,41 @@ namespace RepositoryLayer.Services
                     else
                         resNote.IsTrash = false;
                     fundooContext.SaveChanges();
-                    return true;
+                    return resNote;
                 }
                 else
-                    return false;
+                    return null;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public NotesEntity ChangeColor(string newColor, long noteID, long userID)
+        {
+            try
+            {
+                var resNote = fundooContext.notesEntityTable.Where(n => n.NoteId == noteID && n.UserId == userID).FirstOrDefault();
+                if (resNote != null)
+                {
+                    resNote.Color = string.IsNullOrEmpty(newColor) ? resNote.Color : newColor;
+                    //fundooContext.notesEntityTable.Update(resNote);
+                    fundooContext.SaveChanges();
+                    return resNote;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public NotesEntity UploadImage(long noteID, long userID)
+        {
+            throw new NotImplementedException();
         }
     }
 }
