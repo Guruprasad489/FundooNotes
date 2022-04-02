@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Models;
+using Microsoft.AspNetCore.Http;
 using RepositoryLayer.Entity;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace BusinessLayer.Interface
         NotesEntity IsPinnedOrNot(long noteID, long userID);
         NotesEntity IsTrashOrNot(long noteID, long userID);
         NotesEntity ChangeColor(string newColor, long noteID, long userID);
-        NotesEntity UploadImage(long noteID, long userID);
+        NotesEntity UploadImage(long noteID, long userID, IFormFile imagePath);
+        string RemoveImage(long noteID, long userID);
     }
 }

@@ -1,4 +1,7 @@
-﻿using CommonLayer.Models;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using CommonLayer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
@@ -13,10 +16,12 @@ namespace RepositoryLayer.Services
     public class NotesRL : INotesRL
     {
         private readonly FundooContext fundooContext;
+        private readonly IConfiguration configuration;
 
         public NotesRL(FundooContext fundooContext, IConfiguration configuration)
         {
             this.fundooContext = fundooContext;
+            this.configuration = configuration;
         }
 
         public NotesEntity CreateNote(Notes createNotes, long userID)
@@ -223,9 +228,59 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public NotesEntity UploadImage(long noteID, long userID)
+        public NotesEntity UploadImage(long noteID, long userID, IFormFile imagePath)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var resNote = fundooContext.notesEntityTable.Where(n => n.NoteId == noteID && n.UserId == userID).FirstOrDefault();
+                if (resNote != null)
+                {
+                    //Account account = new Account("guruprasad489", "495828661761912", "WhoWnj9p7haOK6-X_DRuJVRTvJE");
+                    Account account = new Account(configuration["Cloudinary:CloudName"], configuration["Cloudinary:ApiKey"], configuration["Cloudinary:ApiSecret"]);
+                    Cloudinary cloudinary = new Cloudinary(account);
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(imagePath.FileName, imagePath.OpenReadStream()),
+                    };
+                    var uploadResult = cloudinary.Upload(uploadParams);
+
+                    if (uploadResult != null)
+                    {
+                        resNote.Image = uploadResult.Url.ToString();
+                        fundooContext.notesEntityTable.Update(resNote);
+                        fundooContext.SaveChanges();
+                        return resNote;
+                    }
+                    else
+                        return null;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string RemoveImage(long noteID, long userID)
+        {
+            try
+            {
+                var resNote = fundooContext.notesEntityTable.Where(x => x.NoteId == noteID && x.UserId == userID).FirstOrDefault();
+                if (resNote != null)
+                {
+                    resNote.Image = null;
+                    fundooContext.SaveChanges();
+                    return "Image Removed Successfully";
+                }
+                else
+                    return "Failed to remove the image";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

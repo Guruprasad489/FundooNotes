@@ -100,7 +100,7 @@ namespace FundooNotes.Controllers
             {
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.DeleteNote(noteId, userId);
-                if (string.IsNullOrEmpty(resNote))
+                if (resNote.Contains("Success"))
                     return Ok(new { success = true, message = resNote });
                 else
                     return BadRequest(new { success = false, message = resNote });
@@ -176,6 +176,42 @@ namespace FundooNotes.Controllers
                     return Ok(new { Success = true, message = "Color Changed Successfully", data = resNote });
                 else
                     return BadRequest(new { Success = false, message = "Failed to change Color" });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPatch("UploadImage/{imagePath}")]
+        public IActionResult PatchUploadImage(long noteId, IFormFile imagePath)
+        {
+            try
+            {
+                long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var resNote = notesBL.UploadImage(noteId, userId, imagePath);
+                if (resNote != null)
+                    return Ok(new { Success = true, message = "Image Uploaded Successfully", data = resNote });
+                else
+                    return BadRequest(new { Success = false, message = "Failed to Upload Image" });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPatch("RemoveImage")]
+        public IActionResult PatchRemoveImage(long noteId)
+        {
+            try
+            {
+                long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var resNote = notesBL.RemoveImage(noteId, userId);
+                if (resNote.Contains("Success"))
+                    return Ok(new { success = true, message = resNote });
+                else
+                    return BadRequest(new { success = false, message = resNote });
             }
             catch (Exception ex)
             {
