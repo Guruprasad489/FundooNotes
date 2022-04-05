@@ -39,7 +39,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpGet("View")]
+        [HttpGet("View/noteId")]
         public IActionResult GetViewNote(long noteID)
         {
             try
@@ -183,7 +183,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPatch("UploadImage/{imagePath}")]
+        [HttpPatch("UploadImage/noteId")]
         public IActionResult PatchUploadImage(long noteId, IFormFile imagePath)
         {
             try
@@ -201,7 +201,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPatch("RemoveImage")]
+        [HttpPatch("RemoveImage/noteId")]
         public IActionResult PatchRemoveImage(long noteId)
         {
             try
