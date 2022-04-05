@@ -40,13 +40,11 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var duplicate = fundooContext.Collaborators.Where(x => x.EmailId == collaborator.EmailId).FirstOrDefault();
-                bool regUser = IsRegUser(collaborator);
+                var duplicate = fundooContext.Collaborators.Where(x => x.EmailId == collaborator.EmailId && x.NoteId == noteID && x.UserId == userID).FirstOrDefault();
+                var resNote = fundooContext.notesEntityTable.Where(x => x.NoteId == noteID && x.UserId == userID).FirstOrDefault();
 
-                if (duplicate == null && regUser == true)
+                if (duplicate == null && resNote != null)
                 {
-                    var resNote = fundooContext.notesEntityTable.Where(x => x.NoteId == noteID && x.UserId == userID).FirstOrDefault();
-
                     CollaboratorEntity collaboratorEntity = new CollaboratorEntity()
                     {
                         EmailId = collaborator.EmailId,
@@ -69,9 +67,27 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public CollaboratorEntity RemoveCollaborator(long collabID, long noteID, long userID)
+        public string RemoveCollaborator(long collabID, long noteID, long userID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var resCollab = fundooContext.Collaborators.Where(x => x.CollaboratorId == collabID && x.NoteId == noteID && x.UserId == userID).FirstOrDefault();
+                if (resCollab != null)
+                {
+                    fundooContext.Collaborators.Remove(resCollab);
+                    int res = fundooContext.SaveChanges();
+                    if (res > 0)
+                        return "Collaborator removed Successfully";
+                    else
+                        return "Failed to remove collaborator";
+                }
+                else
+                    return "Failed to remove collaborator";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public CollaboratorEntity GetAllCollaborators(long noteID, long userID)

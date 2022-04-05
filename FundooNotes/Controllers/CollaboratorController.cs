@@ -29,15 +29,35 @@ namespace FundooNotes.Controllers
                 {
                     //Id Of Authorized User Using JWT Claims
                     long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
-                    var res = collaboratorBL.AddCollaborator(collaborator, noteID, userID);
-                    if (res != null)
-                        return Ok(new { success = true, message = "Collaboration successfull", data = res });
+                    var resCollab = collaboratorBL.AddCollaborator(collaborator, noteID, userID);
+                    if (resCollab != null)
+                        return Ok(new { success = true, message = "Collaboration successfull", data = resCollab });
                     else
                         return BadRequest(new { success = false, message = "Faild to Collaborate" });
                 }
                 else
                     return BadRequest(new { success = false, message = "Can't to Collaborate with non-Regestered User" });
 
+            }
+            catch (System.Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpDelete("Remove")]
+        public IActionResult RemoveCollab(long collabID, long noteID)
+        {
+            try
+            {
+                //Id Of Authorized User Using JWT Claims
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var resCollab = collaboratorBL.RemoveCollaborator(collabID, noteID, userID);
+
+                if (resCollab.ToLower().Contains("success"))
+                    return Ok(new { success = true, message = resCollab });
+                else
+                    return BadRequest(new { success = false, message = resCollab });
             }
             catch (System.Exception ex)
             {

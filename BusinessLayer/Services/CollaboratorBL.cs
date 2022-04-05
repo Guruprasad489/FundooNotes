@@ -40,7 +40,7 @@ namespace BusinessLayer.Services
             }
         }
 
-        public CollaboratorEntity RemoveCollaborator(long collabID, long noteID, long userID)
+        public string RemoveCollaborator(long collabID, long noteID, long userID)
         {
             try
             {

@@ -10,7 +10,7 @@ namespace RepositoryLayer.Interface
     {
         bool IsRegUser(Collaborator collaborator);
         CollaboratorEntity AddCollaborator(Collaborator collaborator, long noteID, long userID);
-        CollaboratorEntity RemoveCollaborator(long collabID, long noteID, long userID);
+        string RemoveCollaborator(long collabID, long noteID, long userID);
         CollaboratorEntity GetAllCollaborators(long noteID, long userID);
     }
 }
