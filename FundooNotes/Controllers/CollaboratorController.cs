@@ -39,7 +39,7 @@ namespace FundooNotes.Controllers
                     return BadRequest(new { success = false, message = "Can't to Collaborate with non-Regestered User" });
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return NotFound(new { success = false, message = ex.Message });
             }
@@ -59,7 +59,27 @@ namespace FundooNotes.Controllers
                 else
                     return BadRequest(new { success = false, message = resCollab });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAllCollabs(long noteID)
+        {
+            try
+            {
+                //Id Of Authorized User Using JWT Claims
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var resCollab = collaboratorBL.GetAllCollaborators(noteID, userID);
+
+                if (resCollab != null)
+                    return Ok(new { success = true, message = "Collabs Display successfull", data = resCollab });
+                else
+                    return BadRequest(new { success = false, message = "Faild to Display Collabs" });
+            }
+            catch (Exception ex)
             {
                 return NotFound(new { success = false, message = ex.Message });
             }
