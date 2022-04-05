@@ -20,7 +20,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult PostCreateNote(Collaborator collaborator, long noteID)
+        public IActionResult AddCollab(Collaborator collaborator, long noteID)
         {
             try
             {
