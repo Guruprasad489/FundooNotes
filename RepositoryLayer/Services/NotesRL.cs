@@ -215,6 +215,7 @@ namespace RepositoryLayer.Services
                 if (resNote != null)
                 {
                     resNote.Color = string.IsNullOrEmpty(newColor) ? resNote.Color : newColor;
+                    resNote.ModifiedAt = DateTime.Now;
                     //fundooContext.notesEntityTable.Update(resNote);
                     fundooContext.SaveChanges();
                     return resNote;
@@ -247,6 +248,7 @@ namespace RepositoryLayer.Services
                     if (uploadResult != null)
                     {
                         resNote.Image = uploadResult.Url.ToString();
+                        resNote.ModifiedAt = DateTime.Now;
                         fundooContext.notesEntityTable.Update(resNote);
                         fundooContext.SaveChanges();
                         return resNote;
@@ -271,6 +273,7 @@ namespace RepositoryLayer.Services
                 if (resNote != null)
                 {
                     resNote.Image = null;
+                    resNote.ModifiedAt = DateTime.Now;
                     fundooContext.SaveChanges();
                     return "Image Removed Successfully";
                 }
