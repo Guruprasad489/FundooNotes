@@ -52,7 +52,7 @@ namespace BusinessLayer.Services
             }
         }
 
-        public CollaboratorEntity GetAllCollaborators(long noteID, long userID)
+        public IEnumerable<CollaboratorEntity> GetAllCollaborators(long noteID, long userID)
         {
             try
             {

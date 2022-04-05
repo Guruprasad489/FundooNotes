@@ -90,9 +90,17 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public CollaboratorEntity GetAllCollaborators(long noteID, long userID)
+        public IEnumerable<CollaboratorEntity> GetAllCollaborators(long noteID, long userID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var getCollabs = fundooContext.Collaborators.Where(x => x.NoteId == noteID && x.UserId == userID).ToList();
+                return getCollabs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
