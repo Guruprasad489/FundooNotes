@@ -14,7 +14,7 @@ namespace RepositoryLayer.Services
     {
         private readonly FundooContext fundooContext;
 
-        public CollaboratorRL(FundooContext fundooContext, IConfiguration configuration)
+        public CollaboratorRL(FundooContext fundooContext)
         {
             this.fundooContext = fundooContext;
         }

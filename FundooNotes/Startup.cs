@@ -41,6 +41,8 @@ namespace FundooNotes
             services.AddTransient<INotesRL, NotesRL>();
             services.AddTransient<ICollaboratorBL, CollaboratorBL>();
             services.AddTransient<ICollaboratorRL, CollaboratorRL>();
+            services.AddTransient<ILabelBL, LabelBL>();
+            services.AddTransient<ILabelRL, LabelRL>();
             services.AddControllers();
             ConfigureSwagger(services);
             services.AddAuthentication(options =>

@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace CommonLayer.Models
 {
-    public class UserLogin
+    public class NoteLabel
     {
+        [Required(ErrorMessage = "{0} should not be empty")]
+        public string LabelName { get; set; }
 
         [Required(ErrorMessage = "{0} should not be empty")]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
-        [Required(ErrorMessage = "{0} should not be empty")]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "Note Id Should be Positive number")]
+        public long NoteId { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace FundooNotes.Controllers
                         return BadRequest(new { success = false, message = "Faild to Collaborate" });
                 }
                 else
-                    return BadRequest(new { success = false, message = "Can't to Collaborate with non-Regestered User" });
+                    return NotFound(new { success = false, message = "Can't to Collaborate with non-Regestered User" });
 
             }
             catch (Exception ex)
