@@ -285,5 +285,18 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public List<NotesEntity> GetAll()
+        {
+            try
+            {
+                var getNotes = fundooContext.notesEntityTable.Where(x => x.NoteId > 0 ).ToList();
+                return getNotes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

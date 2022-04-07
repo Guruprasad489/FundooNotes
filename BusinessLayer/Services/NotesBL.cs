@@ -92,5 +92,17 @@ namespace BusinessLayer.Services
         {
             return notesRL.RemoveImage(noteID, userID);
         }
+
+        public List<NotesEntity> GetAll()
+        {
+            try
+            {
+                return notesRL.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
