@@ -21,6 +21,11 @@ namespace BusinessLayer.Services
             return labelRL.AddLabel(label, userId);
         }
 
+        public LabelEntity EditLabel(string newName, long labelId, long userId)
+        {
+            return labelRL.EditLabel(newName,labelId, userId);
+        }
+
         public string RemoveLabel(long labelId, long noteId, long userId)
         {
             return labelRL.RemoveLabel(labelId, noteId, userId);

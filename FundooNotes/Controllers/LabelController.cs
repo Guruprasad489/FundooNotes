@@ -38,6 +38,25 @@ namespace FundooNotes.Controllers
             }
         }
 
+        [HttpPatch("Edit")]
+        public IActionResult EditLabel(string newName, long labelId)
+        {
+            try
+            {
+                //Id Of Authorized User Using JWT Claims
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var result = labelBL.EditLabel(newName, labelId, userID);
+                if (result != null)
+                    return Ok(new { success = true, message = "Label Name modified successfully", data = result });
+                else
+                    return BadRequest(new { success = false, message = "Faild to Modify label name" });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
+
         [HttpDelete("Remove")]
         public IActionResult DeleteLabel(long labelId, long noteId)
         {
@@ -58,7 +77,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpGet("Get/{noteId}")]
+        [HttpGet("Get/noteId")]
         public IActionResult GetLabels(long noteID)
         {
             try

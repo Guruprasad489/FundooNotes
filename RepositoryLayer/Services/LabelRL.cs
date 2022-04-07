@@ -49,6 +49,32 @@ namespace RepositoryLayer.Services
             }
         }
 
+        public LabelEntity EditLabel(string newName, long labelId, long userId)
+        {
+            try
+            {
+                var result = fundooContext.LabelTable.Where(x => x.LabelId == labelId && x.UserId == userId).FirstOrDefault();
+
+                if (result != null)
+                {
+                    result.LabelName = newName;
+                    
+                    fundooContext.LabelTable.Update(result);
+                    int res = fundooContext.SaveChanges();
+                    if (res > 0)
+                        return result;
+                    else
+                        return null;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public string RemoveLabel(long labelId, long noteId, long userId)
         {
             try
