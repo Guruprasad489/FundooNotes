@@ -40,5 +40,10 @@ namespace BusinessLayer.Services
         {
             return labelRL.GetAllLabels(userId);
         }
+
+        public List<LabelEntity> GetAll()
+        {
+            return labelRL.GetAll();
+        }
     }
 }

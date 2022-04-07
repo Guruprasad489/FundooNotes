@@ -13,5 +13,6 @@ namespace RepositoryLayer.Interface
         string RemoveLabel(long labelId, long noteId, long userId);
         IEnumerable<LabelEntity> GetLabels(long noteId, long userId);
         IEnumerable<LabelEntity> GetAllLabels(long userId);
+        List<LabelEntity> GetAll();
     }
 }

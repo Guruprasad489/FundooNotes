@@ -102,5 +102,18 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public List<CollaboratorEntity> GetAll()
+        {
+            try
+            {
+                var getCollabs = fundooContext.Collaborators.ToList();
+                return getCollabs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

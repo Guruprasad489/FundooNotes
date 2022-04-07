@@ -290,7 +290,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var getNotes = fundooContext.notesEntityTable.Where(x => x.NoteId > 0 ).ToList();
+                var getNotes = fundooContext.notesEntityTable.ToList();
                 return getNotes;
             }
             catch (Exception ex)

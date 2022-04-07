@@ -119,5 +119,18 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public List<LabelEntity> GetAll()
+        {
+            try
+            {
+                var getLabels = fundooContext.LabelTable.ToList();
+                return getLabels;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

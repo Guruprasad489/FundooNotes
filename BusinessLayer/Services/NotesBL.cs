@@ -55,42 +55,98 @@ namespace BusinessLayer.Services
 
         public NotesEntity UpdateNote(Notes updateNotes, long noteID, long userID)
         {
-            return notesRL.UpdateNote(updateNotes, noteID, userID);
+            try
+            {
+                return notesRL.UpdateNote(updateNotes, noteID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string DeleteNote(long noteID, long userID)
         {
-            return notesRL.DeleteNote(noteID, userID);
+            try
+            {
+                return notesRL.DeleteNote(noteID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public NotesEntity IsArchieveOrNot(long noteID, long userID)
         {
-            return notesRL.IsArchieveOrNot(noteID, userID);
+            try
+            {
+                return notesRL.IsArchieveOrNot(noteID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public NotesEntity IsPinnedOrNot(long noteID, long userID)
         {
-            return notesRL.IsPinnedOrNot(noteID, userID);
+            try
+            {
+                return notesRL.IsPinnedOrNot(noteID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public NotesEntity IsTrashOrNot(long noteID, long userID)
         {
-            return notesRL.IsTrashOrNot(noteID, userID);
+            try
+            {
+                return notesRL.IsTrashOrNot(noteID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public NotesEntity ChangeColor(string newColor, long noteID, long userID)
         {
-            return notesRL.ChangeColor(newColor, noteID, userID);
+            try
+            {
+                return notesRL.ChangeColor(newColor, noteID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public NotesEntity UploadImage(long noteID, long userID, IFormFile imagePath)
         {
-            return notesRL.UploadImage(noteID, userID, imagePath);
+            try
+            {
+                return notesRL.UploadImage(noteID, userID, imagePath);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string RemoveImage(long noteID, long userID)
         {
-            return notesRL.RemoveImage(noteID, userID);
+            try
+            {
+                return notesRL.RemoveImage(noteID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public List<NotesEntity> GetAll()

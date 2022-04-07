@@ -232,7 +232,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet("redis")]
-        public async Task<IActionResult> GetAllCustomersUsingRedisCache()
+        public async Task<IActionResult> GetAllNotesUsingRedisCache()
         {
             var cacheKey = "notesList";
             string serializedNotesList;

@@ -63,5 +63,17 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+
+        public List<CollaboratorEntity> GetAll()
+        {
+            try
+            {
+                return collaboratorRL.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
