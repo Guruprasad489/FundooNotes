@@ -45,6 +45,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -64,6 +65,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -84,6 +86,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -104,6 +107,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -124,6 +128,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }

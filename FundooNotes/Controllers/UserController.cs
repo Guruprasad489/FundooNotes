@@ -3,6 +3,7 @@ using CommonLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RepositoryLayer.Context;
 using System.Security.Claims;
 
@@ -13,9 +14,11 @@ namespace FundooNotes.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserBL userBL;
-        public UserController(IUserBL userBL)
+        private readonly ILogger<UserController> _logger;
+        public UserController(IUserBL userBL, ILogger<UserController> logger)
         {
             this.userBL = userBL;
+            this._logger = logger;
         }
 
         [HttpPost("Register")]
@@ -25,13 +28,19 @@ namespace FundooNotes.Controllers
             {
                 var res = userBL.Register(userReg);
                 if (res != null)
+                {
+                    _logger.LogInformation("Registration successfull");
                     return Ok(new { success = true, message = "Registration successfull", data = res });
+                }
                 else
+                {
+                    _logger.LogError("Failed to Register");
                     return BadRequest(new { success = false, message = "Faild to Register" });
+                }
             }
             catch (System.Exception ex)
             {
-
+                _logger.LogError(ex.ToString());
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -43,12 +52,19 @@ namespace FundooNotes.Controllers
             {
                 var res = userBL.UserLogin(userLogin);
                 if (res != null)
+                {
+                    _logger.LogInformation("Login successfull: "+ userLogin.Email);
                     return Ok(new { success = true, message = "Logged in successfully", Email = res.Email, Token = res.Token });
+                }
                 else
+                {
+                    _logger.LogError("Failed to login: "+ userLogin.Email);
                     return BadRequest(new { success = false, message = "Faild to login" });
+                }
             }
             catch (System.Exception ex)
             {
+                _logger.LogError(ex.ToString());
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -66,6 +82,7 @@ namespace FundooNotes.Controllers
             }
             catch (System.Exception ex)
             {
+                _logger.LogError(ex.ToString());
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -85,6 +102,7 @@ namespace FundooNotes.Controllers
             }
             catch (System.Exception ex)
             {
+                _logger.LogError(ex.ToString());
                 return NotFound(new { success = false, message = ex.Message });
             }
         }

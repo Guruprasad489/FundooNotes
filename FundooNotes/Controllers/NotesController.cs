@@ -41,12 +41,19 @@ namespace FundooNotes.Controllers
                 long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var res = notesBL.CreateNote(createNotes, userID);
                 if (res != null)
-                    return Ok(new { success = true, message = "Note Created successfull", data = res });
+                {
+                    //NLog.SuccessInfo("Note Created successfully: " + res.Title);
+                    return Ok(new { success = true, message = "Note Created successfully", data = res });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Faild to Create Note: " + res.Title);
                     return BadRequest(new { success = false, message = "Faild to Create Note" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: "+ ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -59,12 +66,19 @@ namespace FundooNotes.Controllers
                 long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var res = notesBL.ViewNote(noteID, userID);
                 if (res != null)
+                {
+                    //NLog.SuccessInfo("Note Display successfull"+ res.Title);
                     return Ok(new { success = true, message = "Note Display successfull", data = res });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Faild to Display Note"+ res.Title);
                     return BadRequest(new { success = false, message = "Faild to Display Note" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -77,12 +91,19 @@ namespace FundooNotes.Controllers
                 long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var res = notesBL.ViewAllNotes(userID);
                 if (res != null)
-                    return Ok(new { success = true, message = "Notes Display successfull", data = res });
+                {
+                    //NLog.SuccessInfo("All Notes Displayed successfully");
+                    return Ok(new { success = true, message = "All Notes Displayed successfully", data = res });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Faild to Display Notes");
                     return BadRequest(new { success = false, message = "Faild to Display Notes" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -95,12 +116,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.UpdateNote(updateNotes, noteId, userId);
                 if (resNote != null)
-                    return Ok(new { success = true, message = "Notes Updated Successfully", data = resNote });
+                {
+                    //NLog.SuccessInfo("Note Updated Successfully"+ resNote.Title);
+                    return Ok(new { success = true, message = "Note Updated Successfully", data = resNote });
+                }
                 else
-                    return BadRequest(new { success = false, message = "Faild to Update Notes" });
+                {
+                    //NLog.ErrorInfo("Faild to Update Note"+ resNote.Title);
+                    return BadRequest(new { success = false, message = "Faild to Update Note" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -113,12 +141,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.DeleteNote(noteId, userId);
                 if (resNote.Contains("Success"))
+                {
+                    //NLog.SuccessInfo(resNote);
                     return Ok(new { success = true, message = resNote });
+                }
                 else
+                {
+                    //NLog.ErrorInfo(resNote);
                     return BadRequest(new { success = false, message = resNote });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -131,12 +166,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.IsArchieveOrNot(noteId, userId);
                 if (resNote != null)
+                {
+                    //NLog.SuccessInfo("Archive Status Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Archive Status Changed Successfully", data = resNote });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Failed to change Archive Status: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Archive Status" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -149,12 +191,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.IsPinnedOrNot(noteId, userId);
                 if (resNote != null)
+                {
+                    //NLog.SuccessInfo("Pin Status Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Pin Status Changed Successfully" , data = resNote });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Failed to change Pin Status: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Pin Status" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -167,12 +216,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.IsTrashOrNot(noteId, userId);
                 if (resNote != null)
+                {
+                    //NLog.SuccessInfo("Trash Status Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Trash Status Changed Successfully", data = resNote });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Failed to change Trash Status: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Trash Status" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -185,12 +241,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.ChangeColor(newColor, noteId, userId);
                 if (resNote != null)
+                {
+                    //NLog.SuccessInfo("Color Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Color Changed Successfully", data = resNote });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Failed to change Color: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Color" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -203,12 +266,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.UploadImage(noteId, userId, imagePath);
                 if (resNote != null)
+                {
+                    //NLog.SuccessInfo("Image Uploaded Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Image Uploaded Successfully", data = resNote });
+                }
                 else
+                {
+                    //NLog.ErrorInfo("Failed to Upload Image: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to Upload Image" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -221,12 +291,19 @@ namespace FundooNotes.Controllers
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var resNote = notesBL.RemoveImage(noteId, userId);
                 if (resNote.Contains("Success"))
+                {
+                    //NLog.SuccessInfo(resNote);
                     return Ok(new { success = true, message = resNote });
+                }
                 else
+                {
+                    //NLog.ErrorInfo(resNote);
                     return BadRequest(new { success = false, message = resNote });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
@@ -264,12 +341,19 @@ namespace FundooNotes.Controllers
                 long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
                 var res = notesBL.GetNotesByLabel(labelID, userID);
                 if (res != null)
-                    return Ok(new { success = true, message = "Note Display successfull", data = res });
+                {
+                    //NLog.SuccessInfo("Note By Label Display successfull");
+                    return Ok(new { success = true, message = "Note By Label Display successfull", data = res });
+                }
                 else
-                    return BadRequest(new { success = false, message = "Faild to Display Note" });
+                {
+                    //NLog.ErrorInfo("Faild to Display Note By Label");
+                    return BadRequest(new { success = false, message = "Faild to Display Note By Label" });
+                }
             }
             catch (Exception ex)
             {
+                //NLog.ErrorInfo("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }

@@ -1,0 +1,13 @@
+﻿2022-04-08 22:21:22.5367 INFO Application started. Press Ctrl+C to shut down.
+2022-04-08 22:21:22.6581 INFO Hosting environment: Development
+2022-04-08 22:21:22.6581 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-08 22:21:52.8996 INFO Login successfull
+2022-04-08 22:32:18.5761 INFO Application started. Press Ctrl+C to shut down.
+2022-04-08 22:32:18.6741 INFO Hosting environment: Development
+2022-04-08 22:32:18.7030 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-08 22:35:15.2410 INFO Login successfull: guruprasad.testmail@gmail.com
+2022-04-08 23:00:31.9940 INFO Application started. Press Ctrl+C to shut down.
+2022-04-08 23:00:32.0976 INFO Hosting environment: Development
+2022-04-08 23:00:32.1080 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-08 23:02:14.0379 INFO Registration successfull
+2022-04-08 23:02:54.1170 INFO Login successfull: nagaraj@gmail.com

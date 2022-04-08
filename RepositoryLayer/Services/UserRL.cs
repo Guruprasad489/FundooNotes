@@ -17,7 +17,7 @@ namespace RepositoryLayer.Services
     {
         private readonly FundooContext fundooContext;
         private readonly IConfiguration configuration;
-
+        private static string Key = "36c53aa7571c33d2f98d02a4313c4ba1ea15e45c18794eb564b21c19591805g";
 
         public UserRL(FundooContext fundooContext, IConfiguration configuration)
         {
@@ -36,7 +36,7 @@ namespace RepositoryLayer.Services
                     userEntity.FirstName = userReg.FirstName;
                     userEntity.LastName = userReg.LastName;
                     userEntity.Email = userReg.Email;
-                    userEntity.Password = userReg.Password;
+                    userEntity.Password = EncryptPassword(userReg.Password);
                     fundooContext.UserEntityTable.Add(userEntity);
                     int res = fundooContext.SaveChanges();
                     if (res > 0)
@@ -58,13 +58,18 @@ namespace RepositoryLayer.Services
             try
             {
                 LoginResponse loginResponse = new LoginResponse();
-                var loginResult = this.fundooContext.UserEntityTable.Where(user => user.Email == userLogin.Email 
-                          && user.Password == userLogin.Password).FirstOrDefault();
+                var loginResult = this.fundooContext.UserEntityTable.Where(user => user.Email == userLogin.Email).FirstOrDefault();
                 if (loginResult != null)
                 {
-                    loginResponse.Token = GenerateSecurityToken(loginResult.Email, loginResult.UserId);
-                    loginResponse.Email = loginResult.Email;
-                    return loginResponse;
+                    string decryptPass = DecryptPassword(loginResult.Password);
+                    if (decryptPass == userLogin.Password)
+                    {
+                        loginResponse.Token = GenerateSecurityToken(loginResult.Email, loginResult.UserId);
+                        loginResponse.Email = loginResult.Email;
+                        return loginResponse;
+                    }
+                    else
+                        return null;
                 }
                 else
                     return null;
@@ -125,7 +130,7 @@ namespace RepositoryLayer.Services
                 if (resetPassword.NewPassword == resetPassword.ConfirmPassword)
                 {
                     var userDetails = fundooContext.UserEntityTable.Where(x => x.Email == emailID).FirstOrDefault();
-                    userDetails.Password = resetPassword.NewPassword;
+                    userDetails.Password = EncryptPassword(resetPassword.NewPassword);
                     fundooContext.SaveChanges();
                     return "Congratulations! Your password has been changed successfully";
                 }
@@ -136,6 +141,47 @@ namespace RepositoryLayer.Services
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        //Method To Encrypt The Password
+        public static string EncryptPassword(string password)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(password))
+                    return null;
+                else
+                {
+                    password += Key;
+                    var passwordBytes = Encoding.UTF8.GetBytes(password);
+                    return Convert.ToBase64String(passwordBytes);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        //Method To Decrypt The Password
+        public static string DecryptPassword(string encodedPassword)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(encodedPassword))
+                    return null;
+                else
+                {
+                    var encodedBytes = Convert.FromBase64String(encodedPassword);
+                    var res = Encoding.UTF8.GetString(encodedBytes);
+                    var resPass = res.Substring(0, res.Length - Key.Length);
+                    return resPass;
+                }
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }
