@@ -160,5 +160,17 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+
+        public List<NotesEntity> GetNotesByLabel(long labelID, long userID)
+        {
+            try
+            {
+                return notesRL.GetNotesByLabel(labelID, userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

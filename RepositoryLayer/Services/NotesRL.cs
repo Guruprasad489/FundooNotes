@@ -298,5 +298,27 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public List<NotesEntity> GetNotesByLabel(long labelID, long userID)
+        {
+            try
+            {
+                var labelList = fundooContext.LabelTable.Where(x => x.LabelId == labelID).ToList();
+                if (labelList.Count() > 0)
+                {
+                    List<NotesEntity> getNotes = null;
+                    foreach (var label in labelList)
+                    {
+                        getNotes = fundooContext.notesEntityTable.Where(x => x.NoteId == label.NoteId && x.UserId == userID).ToList();
+                    }
+                    return getNotes;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace FundooNotes.Controllers
                 else
                     return BadRequest(new { success = false, message = "Faild to Create Note" });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return NotFound(new { success = false, message = ex.Message });
             }
@@ -63,7 +63,7 @@ namespace FundooNotes.Controllers
                 else
                     return BadRequest(new { success = false, message = "Faild to Display Note" });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return NotFound(new { success = false, message = ex.Message });
             }
@@ -81,7 +81,7 @@ namespace FundooNotes.Controllers
                 else
                     return BadRequest(new { success = false, message = "Faild to Display Notes" });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return NotFound(new { success = false, message = ex.Message });
             }
@@ -254,6 +254,24 @@ namespace FundooNotes.Controllers
                 await distributedCache.SetAsync(cacheKey, redisNotesList, options);
             }
             return Ok(notesList);
+        }
+
+        [HttpGet("View/labelId")]
+        public IActionResult GetNotesByLabel(long labelID)
+        {
+            try
+            {
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var res = notesBL.GetNotesByLabel(labelID, userID);
+                if (res != null)
+                    return Ok(new { success = true, message = "Note Display successfull", data = res });
+                else
+                    return BadRequest(new { success = false, message = "Faild to Display Note" });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
         }
     }
 }

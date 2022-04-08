@@ -21,5 +21,6 @@ namespace BusinessLayer.Interface
         NotesEntity UploadImage(long noteID, long userID, IFormFile imagePath);
         string RemoveImage(long noteID, long userID);
         List<NotesEntity> GetAll();
+        List<NotesEntity> GetNotesByLabel(long labelID, long userID);
     }
 }
