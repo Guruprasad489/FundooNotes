@@ -76,9 +76,15 @@ namespace FundooNotes.Controllers
             {
                 var res = userBL.ForgotPassword(emailID);
                 if (res != null)
+                {
+                    _logger.LogInformation("Reset link sent successfully to: "+ emailID);
                     return Ok(new { success = true, message = "Reset link sent successfully",  });
+                }
                 else
-                    return BadRequest(new { success = false, message = "Failed to sent reset link" });
+                {
+                    _logger.LogError("Failed to send reset link:");
+                    return BadRequest(new { success = false, message = "Failed to send reset link" });
+                }
             }
             catch (System.Exception ex)
             {
@@ -96,9 +102,15 @@ namespace FundooNotes.Controllers
                 var emailID = User.FindFirst(ClaimTypes.Email).Value;
                 var res = userBL.ResetPassword(resetPassword, emailID);
                 if (res != null)
+                {
+                    _logger.LogInformation("Reset password successfull");
                     return Ok(new { success = true, message = res, });
+                }
                 else
+                {
+                    _logger.LogError("Failed to Reset Password");
                     return BadRequest(new { success = false, message = res });
+                }
             }
             catch (System.Exception ex)
             {

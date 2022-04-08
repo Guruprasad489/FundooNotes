@@ -11,3 +11,13 @@
 2022-04-08 23:00:32.1080 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
 2022-04-08 23:02:14.0379 INFO Registration successfull
 2022-04-08 23:02:54.1170 INFO Login successfull: nagaraj@gmail.com
+2022-04-08 23:57:14.4999 INFO Application started. Press Ctrl+C to shut down.
+2022-04-08 23:57:14.6031 INFO Hosting environment: Development
+2022-04-08 23:57:14.6031 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-09 00:58:10.7530 INFO Application started. Press Ctrl+C to shut down.
+2022-04-09 00:58:10.8140 INFO Hosting environment: Development
+2022-04-09 00:58:10.8140 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-09 00:59:38.1798 ERROR System.FormatException: The input is not a valid Base-64 string as it contains a non-base 64 character, more than two padding characters, or an illegal character among the padding characters.
+   at BusinessLayer.Services.UserBL.UserLogin(UserLogin userLogin) in C:\Users\Gurup\source\repos\FundooNotes\BusinessLayer\Services\UserBL.cs:line 39
+   at FundooNotes.Controllers.UserController.PostLogin(UserLogin userLogin) in C:\Users\Gurup\source\repos\FundooNotes\FundooNotes\Controllers\UserController.cs:line 53
+2022-04-09 01:00:23.4932 INFO Reset link sent successfully to: abc123@gmail.com

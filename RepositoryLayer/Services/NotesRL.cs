@@ -65,8 +65,13 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var getNote = fundooContext.notesEntityTable.Where(x => x.NoteId == noteID).FirstOrDefault();
-                return getNote;
+                NotesEntity noteRes = null;
+                var collabRes = fundooContext.Collaborators.FirstOrDefault(x => x.UserId == userID && x.NoteId == noteID);
+                if (collabRes != null)
+                    noteRes = fundooContext.notesEntityTable.Where(n => n.NoteId == collabRes.NoteId).FirstOrDefault();
+                else
+                    noteRes = fundooContext.notesEntityTable.Where(n => n.UserId == userID && n.NoteId == noteID).FirstOrDefault();
+                return noteRes;
             }
             catch (Exception ex)
             {

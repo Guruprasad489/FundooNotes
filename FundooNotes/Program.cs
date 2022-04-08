@@ -14,7 +14,6 @@ namespace FundooNotes
     {
         public static void Main(string[] args)
         {
-            //NLog.SuccessInfo("Application Started Successfully");
             var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
             NLog.GlobalDiagnosticsContext.Set("LogDirectory", logPath);
             CreateHostBuilder(args).Build().Run();
