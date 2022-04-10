@@ -61,8 +61,9 @@ namespace RepositoryLayer.Services
                 var loginResult = this.fundooContext.UserEntityTable.Where(user => user.Email == userLogin.Email).FirstOrDefault();
                 if (loginResult != null)
                 {
+                    var passwordResult = this.fundooContext.UserEntityTable.Where(user => user.Email == userLogin.Email && user.Password == userLogin.Password).FirstOrDefault();
                     string decryptPass = DecryptPassword(loginResult.Password);
-                    if (decryptPass == userLogin.Password)
+                    if (decryptPass == userLogin.Password || passwordResult != null)
                     {
                         loginResponse.Token = GenerateSecurityToken(loginResult.Email, loginResult.UserId);
                         loginResponse.Email = loginResult.Email;
@@ -118,6 +119,33 @@ namespace RepositoryLayer.Services
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        //Ticket for RabbitMQ
+        public UserTicket CreateTicketForPassword(string emailId, string token)
+        {
+            try
+            {
+                var userDetails = fundooContext.UserEntityTable.FirstOrDefault(user => user.Email == emailId);
+                if (userDetails != null)
+                {
+                    UserTicket ticketResonse = new UserTicket
+                    {
+                        FirstName = userDetails.FirstName,
+                        LastName = userDetails.LastName,
+                        EmailId = emailId,
+                        Token = token,
+                        IssueAt = DateTime.Now
+                    };
+                    return ticketResonse;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

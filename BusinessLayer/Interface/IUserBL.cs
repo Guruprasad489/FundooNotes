@@ -12,5 +12,6 @@ namespace BusinessLayer.Interface
         LoginResponse UserLogin(UserLogin userLogin);
         string ForgotPassword(string emailID);
         string ResetPassword(ResetPassword resetPassword, string emailID);
+        UserTicket CreateTicketForPassword(string emailId, string token);
     }
 }

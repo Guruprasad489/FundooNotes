@@ -65,5 +65,17 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+
+        public UserTicket CreateTicketForPassword(string emailId, string token)
+        {
+            try
+            {
+                return this.userRL.CreateTicketForPassword(emailId, token);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
