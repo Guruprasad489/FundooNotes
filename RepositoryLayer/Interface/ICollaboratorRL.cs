@@ -6,6 +6,9 @@ using System.Text;
 
 namespace RepositoryLayer.Interface
 {
+    /// <summary>
+    /// Collab Interface
+    /// </summary>
     public interface ICollaboratorRL
     {
         bool IsRegUser(Collaborator collaborator);

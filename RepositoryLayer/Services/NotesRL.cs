@@ -13,6 +13,10 @@ using System.Text;
 
 namespace RepositoryLayer.Services
 {
+    /// <summary>
+    /// Notes repository layer class for Notes CRUD operations
+    /// </summary>
+    /// <seealso cref="RepositoryLayer.Interface.INotesRL" />
     public class NotesRL : INotesRL
     {
         private readonly FundooContext fundooContext;
@@ -24,6 +28,12 @@ namespace RepositoryLayer.Services
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Creates the note.
+        /// </summary>
+        /// <param name="createNotes">The create notes.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public NotesEntity CreateNote(Notes createNotes, long userID)
         {
             try
@@ -61,6 +71,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// View the note by NoteID.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public NotesEntity ViewNote(long noteID, long userID)
         {
             try
@@ -79,6 +95,11 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// View all notes.
+        /// </summary>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public List<NotesEntity> ViewAllNotes(long userID)
         {
             try
@@ -92,6 +113,13 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Updates the note.
+        /// </summary>
+        /// <param name="updateNotes">The update notes.</param>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public NotesEntity UpdateNote(Notes updateNotes, long noteID, long userID)
         {
             try
@@ -123,6 +151,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Deletes the note.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public string DeleteNote(long noteID, long userID)
         {
             try
@@ -143,6 +177,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Determines whether [is archieve or not] [the specified note identifier].
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public NotesEntity IsArchieveOrNot(long noteID, long userID)
         {
             try
@@ -166,6 +206,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Determines whether [is pinned or not] [the specified note identifier].
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public NotesEntity IsPinnedOrNot(long noteID, long userID)
         {
             try
@@ -189,6 +235,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Determines whether [is trash or not] [the specified note identifier].
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public NotesEntity IsTrashOrNot(long noteID, long userID)
         {
             try
@@ -212,6 +264,13 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Changes the color.
+        /// </summary>
+        /// <param name="newColor">The new color.</param>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public NotesEntity ChangeColor(string newColor, long noteID, long userID)
         {
             try
@@ -234,6 +293,13 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Uploads the image.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="imagePath">The image path.</param>
+        /// <returns></returns>
         public NotesEntity UploadImage(long noteID, long userID, IFormFile imagePath)
         {
             try
@@ -270,6 +336,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Removes the image.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public string RemoveImage(long noteID, long userID)
         {
             try
@@ -291,6 +363,10 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Gets all data from NotesENtityTable
+        /// </summary>
+        /// <returns></returns>
         public List<NotesEntity> GetAll()
         {
             try
@@ -304,6 +380,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Gets the notes by label.
+        /// </summary>
+        /// <param name="labelID">The label identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public List<NotesEntity> GetNotesByLabel(long labelID, long userID)
         {
             try

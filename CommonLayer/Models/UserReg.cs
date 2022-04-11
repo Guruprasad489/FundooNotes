@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CommonLayer.Models
 {
+    /// <summary>
+    /// Class For User registration Request
+    /// </summary>
     public class UserReg
     {
         [Required(ErrorMessage = "{0} should not be empty")]

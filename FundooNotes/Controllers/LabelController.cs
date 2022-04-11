@@ -30,6 +30,11 @@ namespace FundooNotes.Controllers
             this.distributedCache = distributedCache;
         }
 
+        /// <summary>
+        /// Adds the label.
+        /// </summary>
+        /// <param name="label">The label.</param>
+        /// <returns></returns>
         [HttpPost("Add")]
         public IActionResult AddLabel(NoteLabel label)
         {
@@ -50,6 +55,12 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Edits the label.
+        /// </summary>
+        /// <param name="newName">The new name.</param>
+        /// <param name="labelId">The label identifier.</param>
+        /// <returns></returns>
         [HttpPatch("Edit")]
         public IActionResult EditLabel(string newName, long labelId)
         {
@@ -70,6 +81,12 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes the label.
+        /// </summary>
+        /// <param name="labelId">The label identifier.</param>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpDelete("Remove")]
         public IActionResult DeleteLabel(long labelId, long noteId)
         {
@@ -91,6 +108,11 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the labels.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <returns></returns>
         [HttpGet("Get/noteId")]
         public IActionResult GetLabels(long noteID)
         {
@@ -112,6 +134,10 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all labels.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetAll")]
         public IActionResult GetAllLabels()
         {
@@ -133,6 +159,10 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all labels using redis cache.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("redis")]
         public async Task<IActionResult> GetAllLabelsUsingRedisCache()
         {

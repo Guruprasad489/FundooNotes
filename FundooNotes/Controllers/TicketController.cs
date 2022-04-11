@@ -21,6 +21,12 @@ namespace FundooNotes.Controllers
             this._bus = bus;
             this.userBL = userBL;
         }
+
+        /// <summary>
+        /// Creates the ticket for password.
+        /// </summary>
+        /// <param name="emailId">The email identifier.</param>
+        /// <returns></returns>
         [HttpPost("ForgotPassword")]
         public async Task<IActionResult> CreateTicketForPassword(string emailId)
         {

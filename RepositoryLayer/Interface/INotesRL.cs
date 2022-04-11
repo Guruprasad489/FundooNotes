@@ -7,6 +7,9 @@ using System.Text;
 
 namespace RepositoryLayer.Interface
 {
+    /// <summary>
+    /// Notes Interface
+    /// </summary>
     public interface INotesRL
     {
         NotesEntity CreateNote(Notes createNotes, long userID);

@@ -83,3 +83,18 @@
 2022-04-11 17:56:11.9338 INFO Application started. Press Ctrl+C to shut down.
 2022-04-11 17:56:12.0098 INFO Hosting environment: Development
 2022-04-11 17:56:12.0220 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-12 00:31:15.9833 INFO Application started. Press Ctrl+C to shut down.
+2022-04-12 00:31:16.0640 INFO Hosting environment: Development
+2022-04-12 00:31:16.0640 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-12 00:40:48.7958 INFO Application started. Press Ctrl+C to shut down.
+2022-04-12 00:40:48.8625 INFO Hosting environment: Development
+2022-04-12 00:40:48.8625 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-12 00:43:06.3424 INFO Application started. Press Ctrl+C to shut down.
+2022-04-12 00:43:06.4213 INFO Hosting environment: Development
+2022-04-12 00:43:06.4311 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-12 01:26:58.2348 INFO Application started. Press Ctrl+C to shut down.
+2022-04-12 01:26:58.3015 INFO Hosting environment: Development
+2022-04-12 01:26:58.3015 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-12 01:29:37.4224 ERROR Failed to Register
+2022-04-12 01:29:37.8076 ERROR FundooNotes.CustomException.CustomAppException: Faild to Register (Custom ex)
+   at FundooNotes.Controllers.UserController.Register(UserReg userReg) in C:\Users\Gurup\source\repos\FundooNotes\FundooNotes\Controllers\UserController.cs:line 45

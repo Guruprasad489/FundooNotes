@@ -6,6 +6,9 @@ using System.Text;
 
 namespace RepositoryLayer.Interface
 {
+    /// <summary>
+    /// Label Interface
+    /// </summary>
     public interface ILabelRL
     {
         LabelEntity AddLabel(NoteLabel label, long userId);

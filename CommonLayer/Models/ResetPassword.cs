@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CommonLayer.Models
 {
+    /// <summary>
+    /// Class For User Notes Reset Password Request
+    /// </summary>
     public class ResetPassword
     {
         [Required(ErrorMessage = "{0} should not be empty")]

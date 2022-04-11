@@ -10,6 +10,10 @@ using System.Text;
 
 namespace RepositoryLayer.Services
 {
+    /// <summary>
+    /// Collaborator repository layer class for Collab CRUD operations
+    /// </summary>
+    /// <seealso cref="RepositoryLayer.Interface.ICollaboratorRL" />
     public class CollaboratorRL : ICollaboratorRL
     {
         private readonly FundooContext fundooContext;
@@ -19,6 +23,13 @@ namespace RepositoryLayer.Services
             this.fundooContext = fundooContext;
         }
 
+        /// <summary>
+        /// Determines whether [Registered user] [the specified collaborator].
+        /// </summary>
+        /// <param name="collaborator">The collaborator.</param>
+        /// <returns>
+        ///   <c>true</c> if [is reg user] [the specified collaborator]; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsRegUser(Collaborator collaborator)
         {
             try
@@ -36,6 +47,13 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Adds the collaborator.
+        /// </summary>
+        /// <param name="collaborator">The collaborator.</param>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public CollaboratorEntity AddCollaborator(Collaborator collaborator, long noteID, long userID)
         {
             try
@@ -67,6 +85,13 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Removes the collaborator.
+        /// </summary>
+        /// <param name="collabID">The collab identifier.</param>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public string RemoveCollaborator(long collabID, long noteID, long userID)
         {
             try
@@ -90,6 +115,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Gets all collaborators.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public IEnumerable<CollaboratorEntity> GetAllCollaborators(long noteID, long userID)
         {
             try
@@ -103,6 +134,10 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Gets all data from Collaborators DB table
+        /// </summary>
+        /// <returns></returns>
         public List<CollaboratorEntity> GetAll()
         {
             try

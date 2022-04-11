@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RepositoryLayer.Entity;
 using System;
@@ -24,16 +25,23 @@ namespace FundooNotes.Controllers
         private readonly INotesBL notesBL;
         private readonly IMemoryCache memoryCache;
         private readonly IDistributedCache distributedCache;
+        private readonly ILogger<UserController> _logger;
 
-        public NotesController(INotesBL notesBL, IMemoryCache memoryCache, IDistributedCache distributedCache)
+        public NotesController(INotesBL notesBL, IMemoryCache memoryCache, IDistributedCache distributedCache, ILogger<UserController> logger)
         {
             this.notesBL = notesBL;
             this.memoryCache = memoryCache;
             this.distributedCache = distributedCache;
+            this._logger = logger;
         }
 
+        /// <summary>
+        /// Creates the note.
+        /// </summary>
+        /// <param name="createNotes">The create notes.</param>
+        /// <returns></returns>
         [HttpPost("Create")]
-        public IActionResult PostCreateNote(Notes createNotes)
+        public IActionResult CreateNote(Notes createNotes)
         {
             try
             {
@@ -42,24 +50,29 @@ namespace FundooNotes.Controllers
                 var res = notesBL.CreateNote(createNotes, userID);
                 if (res != null)
                 {
-                    //NLog.SuccessInfo("Note Created successfully: " + res.Title);
+                    _logger.LogInformation("Note Created successfully: " + res.Title);
                     return Ok(new { success = true, message = "Note Created successfully", data = res });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Faild to Create Note: " + res.Title);
+                    _logger.LogError("Faild to Create Note: " + res.Title);
                     return BadRequest(new { success = false, message = "Faild to Create Note" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: "+ ex.Message);
+                _logger.LogError("Exception: "+ ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// View the note by note ID.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <returns></returns>
         [HttpGet("View/noteId")]
-        public IActionResult GetViewNote(long noteID)
+        public IActionResult ViewNote(long noteID)
         {
             try
             {
@@ -67,24 +80,28 @@ namespace FundooNotes.Controllers
                 var res = notesBL.ViewNote(noteID, userID);
                 if (res != null)
                 {
-                    //NLog.SuccessInfo("Note Display successfull"+ res.Title);
+                    _logger.LogInformation("Note Display successfull"+ res.Title);
                     return Ok(new { success = true, message = "Note Display successfull", data = res });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Faild to Display Note"+ res.Title);
+                    _logger.LogError("Faild to Display Note"+ res.Title);
                     return BadRequest(new { success = false, message = "Faild to Display Note" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// View all notes.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetAll")]
-        public IActionResult GetViewAllNotes()
+        public IActionResult ViewAllNotes()
         {
             try
             {
@@ -92,24 +109,30 @@ namespace FundooNotes.Controllers
                 var res = notesBL.ViewAllNotes(userID);
                 if (res != null)
                 {
-                    //NLog.SuccessInfo("All Notes Displayed successfully");
+                    _logger.LogInformation("All Notes Displayed successfully");
                     return Ok(new { success = true, message = "All Notes Displayed successfully", data = res });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Faild to Display Notes");
+                    _logger.LogError("Faild to Display Notes");
                     return BadRequest(new { success = false, message = "Faild to Display Notes" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Updates the note.
+        /// </summary>
+        /// <param name="updateNotes">The update notes.</param>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpPut("Update")]
-        public IActionResult PutUpdateNote(Notes updateNotes, long noteId)
+        public IActionResult UpdateNote(Notes updateNotes, long noteId)
         {
             try
             {
@@ -117,22 +140,27 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.UpdateNote(updateNotes, noteId, userId);
                 if (resNote != null)
                 {
-                    //NLog.SuccessInfo("Note Updated Successfully"+ resNote.Title);
+                    _logger.LogInformation("Note Updated Successfully"+ resNote.Title);
                     return Ok(new { success = true, message = "Note Updated Successfully", data = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Faild to Update Note"+ resNote.Title);
+                    _logger.LogError("Faild to Update Note"+ resNote.Title);
                     return BadRequest(new { success = false, message = "Faild to Update Note" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Deletes the note.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpDelete("Delete")]
         public IActionResult DeleteNote(long noteId)
         {
@@ -142,24 +170,29 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.DeleteNote(noteId, userId);
                 if (resNote.Contains("Success"))
                 {
-                    //NLog.SuccessInfo(resNote);
+                    _logger.LogInformation(resNote);
                     return Ok(new { success = true, message = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo(resNote);
+                    _logger.LogError(resNote);
                     return BadRequest(new { success = false, message = resNote });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Determines whether [is archieve or not] [the specified note identifier].
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpPatch("IsArchive")]
-        public IActionResult PatchArchieveOrNot(long noteId)
+        public IActionResult IsArchieveOrNot(long noteId)
         {
             try
             {
@@ -167,24 +200,29 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.IsArchieveOrNot(noteId, userId);
                 if (resNote != null)
                 {
-                    //NLog.SuccessInfo("Archive Status Changed Successfully: "+ resNote.Title);
+                    _logger.LogInformation("Archive Status Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Archive Status Changed Successfully", data = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Failed to change Archive Status: "+ resNote.Title);
+                    _logger.LogError("Failed to change Archive Status: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Archive Status" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Determines whether [is pinned or not] [the specified note identifier].
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpPatch("IsPinned")]
-        public IActionResult PatchPinnedOrNot(long noteId)
+        public IActionResult IsPinnedOrNot(long noteId)
         {
             try
             {
@@ -192,24 +230,29 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.IsPinnedOrNot(noteId, userId);
                 if (resNote != null)
                 {
-                    //NLog.SuccessInfo("Pin Status Changed Successfully: "+ resNote.Title);
+                    _logger.LogInformation("Pin Status Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Pin Status Changed Successfully" , data = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Failed to change Pin Status: "+ resNote.Title);
+                    _logger.LogError("Failed to change Pin Status: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Pin Status" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Determines whether [is trash or not] [the specified note identifier].
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpPatch("IsTrash")]
-        public IActionResult PatchTrashOrNot(long noteId)
+        public IActionResult IsTrashOrNot(long noteId)
         {
             try
             {
@@ -217,24 +260,30 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.IsTrashOrNot(noteId, userId);
                 if (resNote != null)
                 {
-                    //NLog.SuccessInfo("Trash Status Changed Successfully: "+ resNote.Title);
+                    _logger.LogInformation("Trash Status Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Trash Status Changed Successfully", data = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Failed to change Trash Status: "+ resNote.Title);
+                    _logger.LogError("Failed to change Trash Status: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Trash Status" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Changes the color.
+        /// </summary>
+        /// <param name="newColor">The new color.</param>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpPatch("ChangeColor")]
-        public IActionResult PatchChangeColor(string newColor, long noteId)
+        public IActionResult ChangeColor(string newColor, long noteId)
         {
             try
             {
@@ -242,24 +291,30 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.ChangeColor(newColor, noteId, userId);
                 if (resNote != null)
                 {
-                    //NLog.SuccessInfo("Color Changed Successfully: "+ resNote.Title);
+                    _logger.LogInformation("Color Changed Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Color Changed Successfully", data = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Failed to change Color: "+ resNote.Title);
+                    _logger.LogError("Failed to change Color: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to change Color" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Uploads the image.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <param name="imagePath">The image path.</param>
+        /// <returns></returns>
         [HttpPatch("UploadImage/noteId")]
-        public IActionResult PatchUploadImage(long noteId, IFormFile imagePath)
+        public IActionResult UploadImage(long noteId, IFormFile imagePath)
         {
             try
             {
@@ -267,24 +322,29 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.UploadImage(noteId, userId, imagePath);
                 if (resNote != null)
                 {
-                    //NLog.SuccessInfo("Image Uploaded Successfully: "+ resNote.Title);
+                    _logger.LogInformation("Image Uploaded Successfully: "+ resNote.Title);
                     return Ok(new { Success = true, message = "Image Uploaded Successfully", data = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Failed to Upload Image: "+ resNote.Title);
+                    _logger.LogError("Failed to Upload Image: "+ resNote.Title);
                     return BadRequest(new { Success = false, message = "Failed to Upload Image" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Removes the image.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <returns></returns>
         [HttpPatch("RemoveImage/noteId")]
-        public IActionResult PatchRemoveImage(long noteId)
+        public IActionResult RemoveImage(long noteId)
         {
             try
             {
@@ -292,22 +352,26 @@ namespace FundooNotes.Controllers
                 var resNote = notesBL.RemoveImage(noteId, userId);
                 if (resNote.Contains("Success"))
                 {
-                    //NLog.SuccessInfo(resNote);
+                    _logger.LogInformation(resNote);
                     return Ok(new { success = true, message = resNote });
                 }
                 else
                 {
-                    //NLog.ErrorInfo(resNote);
+                    _logger.LogError(resNote);
                     return BadRequest(new { success = false, message = resNote });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Gets all notes using redis cache.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("redis")]
         public async Task<IActionResult> GetAllNotesUsingRedisCache()
         {
@@ -333,6 +397,11 @@ namespace FundooNotes.Controllers
             return Ok(notesList);
         }
 
+        /// <summary>
+        /// Gets the notes by label.
+        /// </summary>
+        /// <param name="labelID">The label identifier.</param>
+        /// <returns></returns>
         [HttpGet("View/labelId")]
         public IActionResult GetNotesByLabel(long labelID)
         {
@@ -342,18 +411,18 @@ namespace FundooNotes.Controllers
                 var res = notesBL.GetNotesByLabel(labelID, userID);
                 if (res != null)
                 {
-                    //NLog.SuccessInfo("Note By Label Display successfull");
+                    _logger.LogInformation("Note By Label Display successfull");
                     return Ok(new { success = true, message = "Note By Label Display successfull", data = res });
                 }
                 else
                 {
-                    //NLog.ErrorInfo("Faild to Display Note By Label");
+                    _logger.LogError("Faild to Display Note By Label");
                     return BadRequest(new { success = false, message = "Faild to Display Note By Label" });
                 }
             }
             catch (Exception ex)
             {
-                //NLog.ErrorInfo("Exception: " + ex.Message);
+                _logger.LogError("Exception: " + ex.Message);
                 return NotFound(new { success = false, message = ex.Message });
             }
         }

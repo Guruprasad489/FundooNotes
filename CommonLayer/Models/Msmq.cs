@@ -7,9 +7,20 @@ using System.Text;
 
 namespace CommonLayer.Models
 {
+    /// <summary>
+    /// Class for microsoft messaging queue
+    /// </summary>
     public class Msmq
     {
+        /// <summary>
+        /// The message queue object
+        /// </summary>
         MessageQueue messageQueue = new MessageQueue();
+
+        /// <summary>
+        /// Method to Send the message.
+        /// </summary>
+        /// <param name="token">The token.</param>
         public void SendMessage(string token)
         {
             messageQueue.Path = @".\Private$\Token";
@@ -28,12 +39,15 @@ namespace CommonLayer.Models
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
 
-        //Delegate
+        /// <summary>
+        /// Handles the ReceiveCompleted event of the MessageQueue control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ReceiveCompletedEventArgs"/> instance containing the event data.</param>
         private void MessageQueue_ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
         {
             try
@@ -55,7 +69,6 @@ namespace CommonLayer.Models
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             

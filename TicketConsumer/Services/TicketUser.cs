@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace TicketConsumer.Services
 {
+    /// <summary>
+    /// User ticket for consumer
+    /// </summary>
+    /// <seealso cref="MassTransit.IConsumer&lt;CommonLayer.Models.UserTicket&gt;" />
     public class TicketUser : IConsumer<UserTicket>
     {
         public async Task Consume(ConsumeContext<UserTicket> context)

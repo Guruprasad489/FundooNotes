@@ -6,6 +6,9 @@ using System.Text;
 
 namespace RepositoryLayer.Interface
 {
+    /// <summary>
+    /// User Interface
+    /// </summary>
     public interface IUserRL
     {
         UserEntity Register(UserReg userReg);

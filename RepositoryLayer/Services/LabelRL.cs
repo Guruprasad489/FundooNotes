@@ -9,6 +9,10 @@ using System.Text;
 
 namespace RepositoryLayer.Services
 {
+    /// <summary>
+    /// Label repository layer class for Label CRUD operations
+    /// </summary>
+    /// <seealso cref="RepositoryLayer.Interface.ILabelRL" />
     public class LabelRL : ILabelRL
     {
         private readonly FundooContext fundooContext;
@@ -18,6 +22,12 @@ namespace RepositoryLayer.Services
             this.fundooContext = fundooContext;
         }
 
+        /// <summary>
+        /// Adds the label.
+        /// </summary>
+        /// <param name="label">The label.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public LabelEntity AddLabel(NoteLabel label, long userId)
         {
             try
@@ -49,6 +59,13 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Edits the label.
+        /// </summary>
+        /// <param name="newName">The new name.</param>
+        /// <param name="labelId">The label identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public LabelEntity EditLabel(string newName, long labelId, long userId)
         {
             try
@@ -75,6 +92,13 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Removes the label.
+        /// </summary>
+        /// <param name="labelId">The label identifier.</param>
+        /// <param name="noteId">The note identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public string RemoveLabel(long labelId, long noteId, long userId)
         {
             try
@@ -94,6 +118,12 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Gets the labels by NoteID.
+        /// </summary>
+        /// <param name="noteId">The note identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public IEnumerable<LabelEntity> GetLabels(long noteId, long userId)
         {
             try
@@ -107,6 +137,11 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Gets all labels.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public IEnumerable<LabelEntity> GetAllLabels(long userId)
         {
             try
@@ -120,6 +155,10 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Gets all data from Labeltable
+        /// </summary>
+        /// <returns></returns>
         public List<LabelEntity> GetAll()
         {
             try

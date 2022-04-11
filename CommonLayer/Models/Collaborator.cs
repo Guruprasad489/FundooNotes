@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CommonLayer.Models
 {
+    /// <summary>
+    /// Class For Collaborator Request
+    /// </summary>
     public class Collaborator
     {
         [Required(ErrorMessage = "{0} should not be empty")]

@@ -8,6 +8,10 @@ using System.Text;
 
 namespace BusinessLayer.Services
 {
+    /// <summary>
+    ///  User Business Layer Class To Implement methods of IUserBL
+    /// </summary>
+    /// <seealso cref="BusinessLayer.Interface.IUserBL" />
     public class UserBL : IUserBL
     {
         private readonly IUserRL userRL;

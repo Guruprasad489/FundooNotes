@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interface;
 using CommonLayer.Models;
+using FundooNotes.CustomException;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,14 @@ namespace FundooNotes.Controllers
             this._logger = logger;
         }
 
+        /// <summary>
+        /// Post request for register.
+        /// Registers the specified user reg.
+        /// </summary>
+        /// <param name="userReg">The user reg.</param>
+        /// <returns></returns>
         [HttpPost("Register")]
-        public IActionResult Post(UserReg userReg)
+        public IActionResult Register(UserReg userReg)
         {
             try
             {
@@ -30,12 +37,12 @@ namespace FundooNotes.Controllers
                 if (res != null)
                 {
                     _logger.LogInformation("Registration successfull");
-                    return Ok(new { success = true, message = "Registration successfull", data = res });
+                    return Created("User Registration sucessfull", new { success = true, data = res });
                 }
                 else
                 {
                     _logger.LogError("Failed to Register");
-                    return BadRequest(new { success = false, message = "Faild to Register" });
+                    throw new CustomAppException("Faild to Register");
                 }
             }
             catch (System.Exception ex)
@@ -45,8 +52,14 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Post request for login
+        /// Logins the specified user login.
+        /// </summary>
+        /// <param name="userLogin">The user login.</param>
+        /// <returns></returns>
         [HttpPost("Login")]
-        public IActionResult PostLogin(UserLogin userLogin)
+        public IActionResult Login(UserLogin userLogin)
         {
             try
             {
@@ -59,7 +72,7 @@ namespace FundooNotes.Controllers
                 else
                 {
                     _logger.LogError("Failed to login: "+ userLogin.Email);
-                    return BadRequest(new { success = false, message = "Faild to login" });
+                    throw new CustomAppException("Faild to Login");
                 }
             }
             catch (System.Exception ex)
@@ -69,8 +82,13 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Post request for Forgot password.
+        /// </summary>
+        /// <param name="emailID">The email identifier.</param>
+        /// <returns></returns>
         [HttpPost("ForgotPassword")]
-        public IActionResult PostForgotPassword(string emailID)
+        public IActionResult ForgotPassword(string emailID)
         {
             try
             {
@@ -83,7 +101,7 @@ namespace FundooNotes.Controllers
                 else
                 {
                     _logger.LogError("Failed to send reset link:");
-                    return BadRequest(new { success = false, message = "Failed to send reset link" });
+                    throw new CustomAppException("Failed to send reset link");
                 }
             }
             catch (System.Exception ex)
@@ -93,23 +111,33 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Put request for Reset password.
+        /// </summary>
+        /// <param name="resetPassword">The reset password.</param>
+        /// <returns></returns>
         [HttpPut("ResetPassword")]
         [Authorize]
-        public IActionResult PutResetPassword(ResetPassword resetPassword)
+        public IActionResult ResetPassword(ResetPassword resetPassword)
         {
             try
             {
                 var emailID = User.FindFirst(ClaimTypes.Email).Value;
                 var res = userBL.ResetPassword(resetPassword, emailID);
-                if (res != null)
+                if (res.ToLower().Contains("match"))
                 {
-                    _logger.LogInformation("Reset password successfull");
+                    _logger.LogError(res);
+                    throw new CustomAppException(res);
+                }
+                else if (res.ToLower().Contains("success"))
+                {
+                    _logger.LogInformation(res);
                     return Ok(new { success = true, message = res, });
                 }
                 else
                 {
                     _logger.LogError("Failed to Reset Password");
-                    return BadRequest(new { success = false, message = res });
+                    throw new CustomAppException(res);
                 }
             }
             catch (System.Exception ex)

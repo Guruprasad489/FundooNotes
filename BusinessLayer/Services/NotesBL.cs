@@ -9,6 +9,10 @@ using System.Text;
 
 namespace BusinessLayer.Services
 {
+    /// <summary>
+    /// Notes Business Layer Class To Implement methods of INotesBL
+    /// </summary>
+    /// <seealso cref="BusinessLayer.Interface.INotesBL" />
     public class NotesBL : INotesBL
     {
         private readonly INotesRL notesRL;

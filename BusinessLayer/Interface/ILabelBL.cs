@@ -6,6 +6,9 @@ using System.Text;
 
 namespace BusinessLayer.Interface
 {
+    /// <summary>
+    /// Interface For Label Business Layer Class
+    /// </summary>
     public interface ILabelBL
     {
         LabelEntity AddLabel(NoteLabel label, long userId);

@@ -7,6 +7,9 @@ using System.Text;
 
 namespace BusinessLayer.Interface
 {
+    /// <summary>
+    /// Interface For Notes Business Layer Class
+    /// </summary>
     public interface INotesBL
     {
         NotesEntity CreateNote(Notes createNotes, long userID);

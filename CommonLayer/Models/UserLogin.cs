@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CommonLayer.Models
 {
+    /// <summary>
+    /// Class For User login Request
+    /// </summary>
     public class UserLogin
     {
 

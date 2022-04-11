@@ -8,6 +8,10 @@ using System.Text;
 
 namespace BusinessLayer.Services
 {
+    /// <summary>
+    /// Label Business Layer Class To Implement methods of ILabelBL
+    /// </summary>
+    /// <seealso cref="BusinessLayer.Interface.ILabelBL" />
     public class LabelBL : ILabelBL
     {
         private readonly ILabelRL labelRL;

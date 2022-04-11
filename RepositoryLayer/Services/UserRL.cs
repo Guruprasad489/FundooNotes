@@ -13,6 +13,10 @@ using System.Text;
 
 namespace RepositoryLayer.Services
 {
+    /// <summary>
+    /// User repository layer class for User CRUD operations
+    /// </summary>
+    /// <seealso cref="RepositoryLayer.Interface.IUserRL" />
     public class UserRL : IUserRL
     {
         private readonly FundooContext fundooContext;
@@ -25,6 +29,11 @@ namespace RepositoryLayer.Services
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Registers the specified user.
+        /// </summary>
+        /// <param name="userReg">The user reg.</param>
+        /// <returns></returns>
         public UserEntity Register(UserReg userReg)
         {
             try
@@ -53,6 +62,11 @@ namespace RepositoryLayer.Services
             }
         }
 
+        /// <summary>
+        /// Logins in the specified user.
+        /// </summary>
+        /// <param name="userLogin">The user login.</param>
+        /// <returns></returns>
         public LoginResponse UserLogin(UserLogin userLogin)
         {
             try
@@ -81,7 +95,13 @@ namespace RepositoryLayer.Services
             }
         }
 
-        //Method to generate Security key for user (Generating Json Web token)
+        /// <summary>
+        /// Generates the security token.
+        /// Method to generate Security key for user (Generating Json Web token) 
+        /// </summary>
+        /// <param name="emailID">The email identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
         public string GenerateSecurityToken(string emailID, long userId)
         {
             var SecurityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(this.configuration["Jwt:SecretKey"]));
@@ -102,6 +122,11 @@ namespace RepositoryLayer.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        /// <summary>
+        /// Method to get password reset link.
+        /// </summary>
+        /// <param name="emailID">The email identifier.</param>
+        /// <returns></returns>
         public string ForgotPassword(string emailID)
         {
             try
@@ -123,7 +148,12 @@ namespace RepositoryLayer.Services
             }
         }
 
-        //Ticket for RabbitMQ
+        /// <summary>
+        /// Creates the ticket for password (RabbitMQ).
+        /// </summary>
+        /// <param name="emailId">The email identifier.</param>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public UserTicket CreateTicketForPassword(string emailId, string token)
         {
             try
@@ -150,7 +180,12 @@ namespace RepositoryLayer.Services
             }
         }
 
-        //Reset Password for Authenticated emailID after authorization
+        /// <summary>
+        /// Reset Password for Authenticated emailID after authorization 
+        /// </summary>
+        /// <param name="resetPassword">The reset password.</param>
+        /// <param name="emailID">The email identifier.</param>
+        /// <returns></returns>
         public string ResetPassword(ResetPassword resetPassword, string emailID)
         {
             try
@@ -159,8 +194,13 @@ namespace RepositoryLayer.Services
                 {
                     var userDetails = fundooContext.UserEntityTable.Where(x => x.Email == emailID).FirstOrDefault();
                     userDetails.Password = EncryptPassword(resetPassword.NewPassword);
-                    fundooContext.SaveChanges();
-                    return "Congratulations! Your password has been changed successfully";
+                    int res = fundooContext.SaveChanges();
+                    if (res > 0)
+                    {
+                        return "Congratulations! Your password has been changed successfully";
+                    }
+                    else
+                        return "Failed to reset your password";
                 }
                 else
                     return "Make Sure your Passwords Match";
@@ -168,12 +208,15 @@ namespace RepositoryLayer.Services
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
 
-        //Method To Encrypt The Password
+        /// <summary>
+        /// Encrypts the password.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         public static string EncryptPassword(string password)
         {
             try
@@ -193,7 +236,11 @@ namespace RepositoryLayer.Services
             }
         }
 
-        //Method To Decrypt The Password
+        /// <summary>
+        /// Decrypts the password.
+        /// </summary>
+        /// <param name="encodedPassword">The encoded password.</param>
+        /// <returns></returns>
         public static string DecryptPassword(string encodedPassword)
         {
             try

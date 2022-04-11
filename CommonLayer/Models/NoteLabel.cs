@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CommonLayer.Models
 {
+    /// <summary>
+    /// Class For Notes label Request
+    /// </summary>
     public class NoteLabel
     {
         [Required(ErrorMessage = "{0} should not be empty")]

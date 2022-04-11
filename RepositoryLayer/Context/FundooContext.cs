@@ -3,6 +3,10 @@ using RepositoryLayer.Entity;
 
 namespace RepositoryLayer.Context
 {
+    /// <summary>
+    /// Created The FundooContext Class For Migration Of DIfferent Tables Into Db
+    /// </summary>
+    /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public class FundooContext : DbContext
     {
         public FundooContext(DbContextOptions options)

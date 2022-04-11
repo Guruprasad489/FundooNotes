@@ -6,6 +6,9 @@ using System.Text;
 
 namespace BusinessLayer.Interface
 {
+    /// <summary>
+    /// Interface For User Business Layer Class
+    /// </summary>
     public interface IUserBL
     {
         UserEntity Register(UserReg userReg);

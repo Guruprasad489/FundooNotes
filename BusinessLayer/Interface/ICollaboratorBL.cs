@@ -6,6 +6,9 @@ using System.Text;
 
 namespace BusinessLayer.Interface
 {
+    /// <summary>
+    /// Interface For Colaborator Business Layer Class
+    /// </summary>
     public interface ICollaboratorBL
     {
         bool IsRegUser(Collaborator collaborator);

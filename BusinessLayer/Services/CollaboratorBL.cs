@@ -8,6 +8,9 @@ using System.Text;
 
 namespace BusinessLayer.Services
 {
+    /// <summary>
+    /// Collaborator Business Layer Class To Implement methods of IColabBL
+    /// </summary>
     public class CollaboratorBL : ICollaboratorBL
     {
         private readonly ICollaboratorRL collaboratorRL;

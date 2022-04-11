@@ -24,6 +24,7 @@ namespace FundooNotes.Controllers
         private readonly ICollaboratorBL collaboratorBL;
         private readonly IMemoryCache memoryCache;
         private readonly IDistributedCache distributedCache;
+
         public CollaboratorController(ICollaboratorBL collaboratorBL, ILabelBL labelBL, IMemoryCache memoryCache, IDistributedCache distributedCache)
         {
             this.collaboratorBL = collaboratorBL;
@@ -31,6 +32,12 @@ namespace FundooNotes.Controllers
             this.distributedCache = distributedCache;
         }
 
+        /// <summary>
+        /// Adds the collab.
+        /// </summary>
+        /// <param name="collaborator">The collaborator.</param>
+        /// <param name="noteID">The note identifier.</param>
+        /// <returns></returns>
         [HttpPost("Add")]
         public IActionResult AddCollab(Collaborator collaborator, long noteID)
         {
@@ -57,6 +64,12 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Removes the collab.
+        /// </summary>
+        /// <param name="collabID">The collab identifier.</param>
+        /// <param name="noteID">The note identifier.</param>
+        /// <returns></returns>
         [HttpDelete("Remove")]
         public IActionResult RemoveCollab(long collabID, long noteID)
         {
@@ -77,6 +90,11 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all collabs.
+        /// </summary>
+        /// <param name="noteID">The note identifier.</param>
+        /// <returns></returns>
         [HttpGet("GetAll")]
         public IActionResult GetAllCollabs(long noteID)
         {
@@ -97,6 +115,10 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all collabs using redis cache.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("redis")]
         public async Task<IActionResult> GetAllCollabsUsingRedisCache()
         {

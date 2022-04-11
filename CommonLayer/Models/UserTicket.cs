@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CommonLayer.Models
 {
+    /// <summary>
+    /// User ticket class for producer 
+    /// </summary>
     public class UserTicket
     {
         public string FirstName { get; set; }
