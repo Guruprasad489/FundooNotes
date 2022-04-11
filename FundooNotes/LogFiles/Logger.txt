@@ -46,3 +46,40 @@
 2022-04-10 23:57:45.6968 INFO Application started. Press Ctrl+C to shut down.
 2022-04-10 23:57:45.8250 INFO Hosting environment: Development
 2022-04-10 23:57:45.8358 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 00:20:03.4802 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 00:20:03.6494 INFO Hosting environment: Development
+2022-04-11 00:20:03.6823 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 08:15:10.7393 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 08:15:10.8071 INFO Hosting environment: Development
+2022-04-11 08:15:10.8071 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 08:18:01.7521 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 08:18:01.8097 INFO Hosting environment: Development
+2022-04-11 08:18:01.8097 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 08:19:58.3257 INFO Application is shutting down...
+2022-04-11 08:19:58.3257 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 08:19:58.4140 INFO Hosting environment: Development
+2022-04-11 08:19:58.4384 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 08:20:26.6844 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 08:20:26.7433 INFO Hosting environment: Development
+2022-04-11 08:20:26.7433 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 09:23:55.6108 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 09:23:55.7683 INFO Hosting environment: Development
+2022-04-11 09:23:55.7780 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 09:32:52.4288 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 09:32:52.5257 INFO Hosting environment: Development
+2022-04-11 09:32:52.5257 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 17:35:04.2477 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 17:35:04.3357 INFO Hosting environment: Development
+2022-04-11 17:35:04.3553 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 17:42:36.4421 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 17:42:36.5035 INFO Hosting environment: Development
+2022-04-11 17:42:36.5035 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 17:47:09.7490 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 17:47:09.8094 INFO Hosting environment: Development
+2022-04-11 17:47:09.8094 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 17:50:22.4364 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 17:50:22.5053 INFO Hosting environment: Development
+2022-04-11 17:50:22.5123 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes
+2022-04-11 17:56:11.9338 INFO Application started. Press Ctrl+C to shut down.
+2022-04-11 17:56:12.0098 INFO Hosting environment: Development
+2022-04-11 17:56:12.0220 INFO Content root path: C:\Users\Gurup\source\repos\FundooNotes\FundooNotes

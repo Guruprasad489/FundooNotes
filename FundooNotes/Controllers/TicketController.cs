@@ -31,10 +31,10 @@ namespace FundooNotes.Controllers
                     var token = userBL.ForgotPassword(emailId);
                     if (!string.IsNullOrEmpty(token))
                     {
-                        var ticketResonse = userBL.CreateTicketForPassword(emailId, token);
+                        var ticketResponse = userBL.CreateTicketForPassword(emailId, token);
                         Uri uri = new Uri("rabbitmq://localhost/ticketQueue");
                         var endPoint = await _bus.GetSendEndpoint(uri);
-                        await endPoint.Send(ticketResonse);
+                        await endPoint.Send(ticketResponse);
                         return Ok(new { success = true, message = "Email Sent Successfully" });
                     }
                     else
