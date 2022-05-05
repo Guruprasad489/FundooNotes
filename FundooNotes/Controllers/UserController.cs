@@ -38,6 +38,7 @@ namespace FundooNotes.Controllers
                 {
                     _logger.LogInformation("Registration successfull");
                     return Created("User Registration sucessfull", new { success = true, data = res });
+                    //return Ok(new { success = true, message = "Registration successfull", data = res });
                 }
                 else
                 {
@@ -88,15 +89,15 @@ namespace FundooNotes.Controllers
         /// <param name="emailID">The email identifier.</param>
         /// <returns></returns>
         [HttpPost("ForgotPassword")]
-        public IActionResult ForgotPassword(string emailID)
+        public IActionResult ForgotPassword(ForgotPassword forgotPassword)
         {
             try
             {
-                var res = userBL.ForgotPassword(emailID);
+                var res = userBL.ForgotPassword(forgotPassword);
                 if (res != null)
                 {
-                    _logger.LogInformation("Reset link sent successfully to: "+ emailID);
-                    return Ok(new { success = true, message = "Reset link sent successfully",  });
+                    _logger.LogInformation("Reset link sent successfully to: "+ forgotPassword.Email);
+                    return Ok(new { success = true, message = "Reset link sent successfully"  });
                 }
                 else
                 {

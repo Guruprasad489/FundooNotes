@@ -28,16 +28,16 @@ namespace FundooNotes.Controllers
         /// <param name="emailId">The email identifier.</param>
         /// <returns></returns>
         [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> CreateTicketForPassword(string emailId)
+        public async Task<IActionResult> CreateTicketForPassword(ForgotPassword forgotPassword)
         {
             try
             {
-                if (emailId != null)
+                if (forgotPassword.Email != null)
                 {
-                    var token = userBL.ForgotPassword(emailId);
+                    var token = userBL.ForgotPassword(forgotPassword);
                     if (!string.IsNullOrEmpty(token))
                     {
-                        var ticketResponse = userBL.CreateTicketForPassword(emailId, token);
+                        var ticketResponse = userBL.CreateTicketForPassword(forgotPassword, token);
                         Uri uri = new Uri("rabbitmq://localhost/ticketQueue");
                         var endPoint = await _bus.GetSendEndpoint(uri);
                         await endPoint.Send(ticketResponse);

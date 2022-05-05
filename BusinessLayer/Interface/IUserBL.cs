@@ -13,8 +13,8 @@ namespace BusinessLayer.Interface
     {
         UserEntity Register(UserReg userReg);
         LoginResponse UserLogin(UserLogin userLogin);
-        string ForgotPassword(string emailID);
+        string ForgotPassword(ForgotPassword forgotPassword);
         string ResetPassword(ResetPassword resetPassword, string emailID);
-        UserTicket CreateTicketForPassword(string emailId, string token);
+        UserTicket CreateTicketForPassword(ForgotPassword forgotPassword, string token);
     }
 }

@@ -38,9 +38,9 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var duplicate = fundooContext.notesEntityTable.Where(x => x.Title == createNotes.Title).FirstOrDefault();
-                if (duplicate == null)
-                {
+                //var duplicate = fundooContext.notesEntityTable.Where(x => x.Title == createNotes.Title).FirstOrDefault();
+                //if (duplicate == null)
+                //{
                     NotesEntity notesEntity = new NotesEntity()
                     {
                         Title = createNotes.Title,
@@ -61,9 +61,9 @@ namespace RepositoryLayer.Services
                         return notesEntity;
                     else
                         return null;
-                }
-                else
-                    return null;
+                //}
+                //else
+                //    return null;
             }
             catch (Exception ex)
             {

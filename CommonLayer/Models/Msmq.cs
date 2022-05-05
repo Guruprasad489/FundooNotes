@@ -63,8 +63,27 @@ namespace CommonLayer.Models
                 };
                 mailMessage.From = new MailAddress("guruprasad.testmail@gmail.com");
                 mailMessage.To.Add(new MailAddress("guruprasad.testmail@gmail.com"));
-                mailMessage.Body = "Token to reset password is: \n\n"+ token;
+
+                //mailMessage.Body = "Please click on the link to Reset your password: \n\n"+ "http://localhost:4200/reset-password" + "\n" + token +
+                //                   "\n\nThe link is valid for 1 hour";
+
+                mailMessage.Body = $"<!DOCTYPE html>" +
+                                   $"<html>" +
+                                   $"<html lang=\"en\">" +
+                                    $"<head>" +
+                                    $"<meta charset=\"UTF - 8\">" +
+                                    $"</head>" +
+                                    $"<body>" +
+                                    $"<h2> Dear Fundoo User, </h2>\n" +
+                                    $"<h3> Please click on the below link to reset password</h3>" +
+                                    $"<a href='http://localhost:4200/reset-password/{token}'> ClickHere </a>\n " +
+                                    $"<h3 style = \"color: #EA4335\"> \nThe link is valid for 24 hour </h3>" +
+                                    $"</body>" +
+                                   $"</html>";
+
+
                 mailMessage.Subject = "Fundoo Notes Password Reset Link";
+                mailMessage.IsBodyHtml = true;
                 smtpClient.Send(mailMessage);
             }
             catch (Exception ex)

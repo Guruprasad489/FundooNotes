@@ -11,7 +11,7 @@ namespace CommonLayer.Models
     /// </summary>
     public class Notes
     {
-        [Required(ErrorMessage = "{0} should not be empty")]
+        //[Required(ErrorMessage = "{0} should not be empty")]
         public string Title { get; set; }
         public string Description { get; set; }
         public string Color { get; set; }

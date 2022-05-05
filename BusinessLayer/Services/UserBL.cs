@@ -44,11 +44,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public string ForgotPassword(string emailID)
+        public string ForgotPassword(ForgotPassword forgotPassword)
         {
             try
             {
-                return userRL.ForgotPassword(emailID);
+                return userRL.ForgotPassword(forgotPassword);
             }
             catch (Exception ex)
             {
@@ -70,11 +70,11 @@ namespace BusinessLayer.Services
             }
         }
 
-        public UserTicket CreateTicketForPassword(string emailId, string token)
+        public UserTicket CreateTicketForPassword(ForgotPassword forgotPassword, string token)
         {
             try
             {
-                return this.userRL.CreateTicketForPassword(emailId, token);
+                return this.userRL.CreateTicketForPassword(forgotPassword, token);
             }
             catch (Exception ex)
             {

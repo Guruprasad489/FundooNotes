@@ -116,7 +116,7 @@ namespace RepositoryLayer.Services
                 this.configuration["Jwt:Issuer"],
                 this.configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddHours(24),
                 signingCredentials: credentials
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -127,11 +127,11 @@ namespace RepositoryLayer.Services
         /// </summary>
         /// <param name="emailID">The email identifier.</param>
         /// <returns></returns>
-        public string ForgotPassword(string emailID)
+        public string ForgotPassword(ForgotPassword forgotPassword)
         {
             try
             {
-                var email = fundooContext.UserEntityTable.Where(x => x.Email == emailID).FirstOrDefault();
+                var email = fundooContext.UserEntityTable.Where(x => x.Email == forgotPassword.Email).FirstOrDefault();
                 if (email != null)
                 {
                     var token = GenerateSecurityToken(email.Email, email.UserId);
@@ -154,18 +154,18 @@ namespace RepositoryLayer.Services
         /// <param name="emailId">The email identifier.</param>
         /// <param name="token">The token.</param>
         /// <returns></returns>
-        public UserTicket CreateTicketForPassword(string emailId, string token)
+        public UserTicket CreateTicketForPassword(ForgotPassword forgotPassword, string token)
         {
             try
             {
-                var userDetails = fundooContext.UserEntityTable.FirstOrDefault(user => user.Email == emailId);
+                var userDetails = fundooContext.UserEntityTable.FirstOrDefault(user => user.Email == forgotPassword.Email);
                 if (userDetails != null)
                 {
                     UserTicket ticketResonse = new UserTicket
                     {
                         FirstName = userDetails.FirstName,
                         LastName = userDetails.LastName,
-                        EmailId = emailId,
+                        EmailId = forgotPassword.Email,
                         Token = token,
                         IssueAt = DateTime.Now
                     };
@@ -253,6 +253,7 @@ namespace RepositoryLayer.Services
                     var res = Encoding.UTF8.GetString(encodedBytes);
                     var resPass = res.Substring(0, res.Length - Key.Length);
                     return resPass;
+                    //return res;
                 }
             }
             catch (Exception ex)

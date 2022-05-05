@@ -101,6 +101,14 @@ namespace FundooNotes
                     IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"]))
                 };
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                name: "AllowOrigin",
+              builder => {
+                  builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+              });
+            });
         }
 
         /// <summary>
@@ -156,6 +164,8 @@ namespace FundooNotes
             }
 
             app.UseMiddleware<ErrorHandleMiddleware.ErrorHandlerMiddleware>();
+
+            app.UseCors("AllowOrigin");
 
             app.UseHttpsRedirection();
 
