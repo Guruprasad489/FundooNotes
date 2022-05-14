@@ -283,12 +283,12 @@ namespace FundooNotes.Controllers
         /// <param name="noteId">The note identifier.</param>
         /// <returns></returns>
         [HttpPatch("ChangeColor")]
-        public IActionResult ChangeColor(string newColor, long noteId)
+        public IActionResult ChangeColor(ChangeColor color)
         {
             try
             {
                 long userId = Convert.ToInt64(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
-                var resNote = notesBL.ChangeColor(newColor, noteId, userId);
+                var resNote = notesBL.ChangeColor(color.NewColor , color.NoteId, userId);
                 if (resNote != null)
                 {
                     _logger.LogInformation("Color Changed Successfully: "+ resNote.Title);

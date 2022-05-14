@@ -62,6 +62,19 @@ namespace RepositoryLayer.Services
             }
         }
 
+        public List<UserEntity> GetAllUsers(UserReg userReg)
+        {
+            try
+            {
+                var users = fundooContext.UserEntityTable.ToList();
+                return users;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         /// <summary>
         /// Logins in the specified user.
         /// </summary>
@@ -75,12 +88,14 @@ namespace RepositoryLayer.Services
                 var loginResult = this.fundooContext.UserEntityTable.Where(user => user.Email == userLogin.Email).FirstOrDefault();
                 if (loginResult != null)
                 {
-                    var passwordResult = this.fundooContext.UserEntityTable.Where(user => user.Email == userLogin.Email && user.Password == userLogin.Password).FirstOrDefault();
+                    //var passwordResult = this.fundooContext.UserEntityTable.Where(user => user.Email == userLogin.Email && user.Password == userLogin.Password).FirstOrDefault();
                     string decryptPass = DecryptPassword(loginResult.Password);
-                    if (decryptPass == userLogin.Password || passwordResult != null)
+                    if (decryptPass == userLogin.Password)
                     {
                         loginResponse.Token = GenerateSecurityToken(loginResult.Email, loginResult.UserId);
                         loginResponse.Email = loginResult.Email;
+                        loginResponse.FirstName = loginResult.FirstName;
+                        loginResponse.LastName = loginResult.LastName;
                         return loginResponse;
                     }
                     else

@@ -68,7 +68,7 @@ namespace FundooNotes.Controllers
                 if (res != null)
                 {
                     _logger.LogInformation("Login successfull: "+ userLogin.Email);
-                    return Ok(new { success = true, message = "Logged in successfully", Email = res.Email, Token = res.Token });
+                    return Ok(new { success = true, message = "Logged in successfully", Email = res.Email, Token = res.Token, Name = res.FirstName + " " + res.LastName });
                 }
                 else
                 {

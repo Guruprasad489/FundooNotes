@@ -143,5 +143,25 @@ namespace FundooNotes.Controllers
             }
             return Ok(collabList);
         }
+
+        [HttpGet("GetCollabList")]
+        public IActionResult GetCollabList()
+        {
+            try
+            {
+                //Id Of Authorized User Using JWT Claims
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value);
+                var resCollab = collaboratorBL.GetAll();
+
+                if (resCollab != null)
+                    return Ok(new { success = true, message = "Collabs Display successfull", data = resCollab });
+                else
+                    return BadRequest(new { success = false, message = "Faild to Display Collabs" });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { success = false, message = ex.Message });
+            }
+        }
     }
 }

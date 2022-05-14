@@ -104,7 +104,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var getNotes = fundooContext.notesEntityTable.Where(x => x.UserId == userID).ToList();
+                var getNotes = fundooContext.notesEntityTable.Where(x => x.UserId == userID).OrderBy(x=>x.IsPin).ThenBy(x=> x.ModifiedAt).ToList();
                 return getNotes;
             }
             catch (Exception ex)
